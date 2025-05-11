@@ -10,16 +10,21 @@ permalink: /
 
 <div class="project-carousel">
   <div class="carousel-container">
-    <div class="carousel-item small left">
-      <img src="https://placehold.co/400x300/e2e2e2/333333?text=Featured+Project" alt="Featured Project" />
+    <!-- Left project (visible but smaller) -->
+    <div class="carousel-item left">
+      <img src="https://placehold.co/400x300/e2e2e2/333333?text=Project+2" alt="Project 2" />
     </div>
-    <div class="carousel-item featured">
-      <a href="/projects/project1/">
-        <img src="https://placehold.co/800x600/e2e2e2/333333?text=Featured+Project" alt="Featured Project" />
+    
+    <!-- Center project (featured with link) -->
+    <div class="carousel-item center">
+      <a href="/projects/project3/">
+        <img src="https://placehold.co/800x600/e2e2e2/333333?text=Project+3" alt="Project 3" />
       </a>
     </div>
-    <div class="carousel-item small right">
-      <img src="https://placehold.co/400x300/e2e2e2/333333?text=Featured+Project" alt="Featured Project" />
+    
+    <!-- Right project (visible but smaller) -->
+    <div class="carousel-item right">
+      <img src="https://placehold.co/400x300/e2e2e2/333333?text=Project+4" alt="Project 4" />
     </div>
   </div>
   <div class="carousel-dots">
@@ -39,13 +44,17 @@ permalink: /
 
 <div class="about-section">
   <div class="about-image">
-    <img src="https://placehold.co/400x500/e2e2e2/333333?text=Brady+Lin" alt="Brady Lin" />
+    <img src="https://placehold.co/400x500/e2e2e2/333333?text=Brady+Lin" alt="Brady Lin" id="about-image" />
+  </div>
+  <div class="about-text">
+    <div class="about-text-content" id="about-text-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+    </div>
+  </div>
+  <div class="buttons-container">
     <div class="about-button-container">
       <a href="/about/" class="button">About</a>
     </div>
-  </div>
-  <div class="about-text">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
     <div class="contact-button-container">
       <a href="/contact/" class="button">Contact</a>
     </div>

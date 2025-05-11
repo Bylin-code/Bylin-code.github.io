@@ -9,6 +9,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
+      /* Global variables for carousel control */
+      :root {
+        /* Carousel image sizes (in pixels) */
+        --carousel-image-width: 420px;        /* Width of project images */
+        --carousel-image-height: 594px;       /* Height of project images */
+        
+        /* Carousel animation timing */
+        --carousel-transition-time: 0.2s;      /* Duration of all carousel transitions */
+        
+        /* Carousel scale factors */
+        --carousel-side-scale: 0.3;            /* Scale of side images relative to center image */
+        --carousel-mid-scale: 0.5;             /* Scale for intermediate positions during transitions */
+      }
+      
       /* Minimalist Light Design */
       body {
         font-family: 'Montserrat', Arial, sans-serif;
@@ -314,154 +328,431 @@
       }
       
       .carousel-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
+        position: relative;
+        height: 660px; /* Increased to fit the 594px images plus spacing */
+        margin: 0 auto 2rem;
+        overflow: hidden; /* Hide items sliding off-screen */
+        width: 100%;
+        max-width: 1100px;
+        perspective: 1000px; /* Add perspective for better 3D effects */
       }
       
       .carousel-item {
+        position: absolute;
+        transition: all var(--carousel-transition-time) ease-out; /* Use variable for transition time */
         cursor: pointer;
-        transition: transform 0.3s;
+        transform-origin: center center;
+        top: 50%;  /* Center vertically */
+        backface-visibility: hidden; /* Prevent flickering during animations */
+        will-change: transform, left, z-index; /* Optimize for animation performance */
+        box-sizing: border-box; /* Ensure padding and borders are included in dimensions */
+        pointer-events: auto; /* Enable interaction */
       }
       
-      .carousel-item.small {
-        width: 25%;
+      /* Left item styling */
+      .carousel-item.left {
+        left: 15%; /* Position much further to left */
+        transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); /* Use variable for scale */
+        z-index: 1;
+        filter: brightness(0.85); /* Slightly dim smaller images */
+        display: block !important; /* Force display */
+        opacity: 1 !important; /* Ensure visibility */
+        pointer-events: auto; /* Enable interaction */
       }
       
-      .carousel-item.featured {
-        width: 50%;
+      /* Center item styling */
+      .carousel-item.center {
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1); /* Full size, centered */
+        z-index: 20; /* Much higher z-index to ensure it's always on top */
+        filter: brightness(1); /* Full brightness for center image */
+        pointer-events: auto; /* Enable interaction */
       }
       
-      .carousel-item img {
-        width: 100%;
-        height: auto;
-        display: block;
+      /* Right item styling */
+      .carousel-item.right {
+        left: 85%; /* Position much further to right */
+        transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); /* Use variable for scale */
+        z-index: 1;
+        filter: brightness(0.85); /* Slightly dim smaller images */
+        display: block !important; /* Force display */
+        opacity: 1 !important; /* Ensure visibility */
+        pointer-events: auto; /* Enable interaction */
       }
       
-      .carousel-dots {
-        display: flex;
-        justify-content: center;
-        gap: 0.5rem;
-        margin: 1rem 0;
+      /* Image sizes - exact dimensions for all project images */
+      .carousel-item.left img,
+      .carousel-item.right img,
+      .carousel-item.center img {
+        width: var(--carousel-image-width);   /* Fixed width from variable */
+        height: var(--carousel-image-height); /* Fixed height from variable */
+        object-fit: cover;                    /* Ensure images fill the space properly */
+        transition: all var(--carousel-transition-time) ease-out; /* Use variable for time */
       }
       
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #ddd;
+      /* Different shadows for visual depth */
+      .carousel-item.left img,
+      .carousel-item.right img {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
       
-      .dot.active {
-        background-color: #555;
+      .carousel-item.center img {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       }
       
-      /* Projects Button */
-      .projects-button-container {
-        display: flex;
-        justify-content: center;
-        margin: 2rem 0;
+      /* Apply transition classes with smoother animations */
+      
+      /* 1. Sliding left-to-center */
+      .slide-left-to-center {
+        animation: slideLeftToCenter var(--carousel-transition-time) forwards ease-out;
+        z-index: 5 !important; /* Ensure it rises above other items */
       }
       
-      .button {
-        display: inline-block;
-        padding: 0.8rem 2rem;
-        background: transparent;
-        border: 1px solid #555;
-        color: #555;
-        text-decoration: none;
-        transition: background 0.3s, color 0.3s;
+      /* 2. Sliding center-to-right */
+      .slide-center-to-right {
+        animation: slideCenterToRight var(--carousel-transition-time) forwards ease-out;
+        z-index: 5 !important; /* Maintain higher z-index during transition */
       }
       
-      .button:hover {
-        background: #555;
-        color: #fff;
+      /* 3. Sliding right-to-offscreen */
+      .slide-right-to-offscreen {
+        animation: slideRightToOffscreen var(--carousel-transition-time) forwards ease-out;
+        z-index: 0 !important; /* Stay below other elements */
       }
       
-      /* About Section */
-      .about-section {
-        display: flex;
-        gap: 2rem;
-        margin: 3rem 0;
+      /* 4. Sliding offscreen-left-to-left */
+      .slide-offscreen-to-left {
+        animation: slideOffscreenToLeft var(--carousel-transition-time) forwards ease-out;
+        z-index: 0 !important; /* Start below and stay below center */
       }
       
-      .about-image {
-        flex: 1;
+      /* 5. Sliding right-to-center */
+      .slide-right-to-center {
+        animation: slideRightToCenter var(--carousel-transition-time) forwards ease-out;
+        z-index: 5 !important; /* Ensure it rises above other items */
       }
       
-      .about-image img {
-        width: 100%;
-        height: auto;
-        display: block;
+      /* 6. Sliding center-to-left */
+      .slide-center-to-left {
+        animation: slideCenterToLeft var(--carousel-transition-time) forwards ease-out;
+        z-index: 5 !important; /* Maintain higher z-index during transition */
       }
       
-      .about-button-container {
-        margin-top: 1rem;
+      /* 7. Sliding left-to-offscreen */
+      .slide-left-to-offscreen {
+        animation: slideLeftToOffscreen var(--carousel-transition-time) forwards ease-out;
+        z-index: 0 !important; /* Stay below other elements */
       }
       
-      .about-text {
-        flex: 1;
+      /* 8. Sliding offscreen-right-to-right */
+      .slide-offscreen-to-right {
+        animation: slideOffscreenToRight var(--carousel-transition-time) forwards ease-out;
+        z-index: 0 !important; /* Start below and stay below center */
       }
       
-      .contact-button-container {
-        margin-top: 1rem;
-      }
-      
-      /* Gallery Container */
-      .gallery-container {
-        margin: 3rem 0;
-      }
-      
-      .gallery-image {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-      
-      .footer-text {
-        text-align: center;
-        color: #999;
-        margin: 2rem 0;
-      }
-      
-      /* Responsive Adjustments */
-      @media (max-width: 768px) {
-        nav {
-          padding: 1rem;
-          gap: 1.5rem;
-          justify-content: space-between;
+      /* Detailed keyframe animations with improved transitions */
+      @keyframes slideLeftToCenter {
+        0% { 
+          left: 15%; 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          z-index: 1;
+          filter: brightness(0.85); 
         }
-        
-        main {
-          padding: 1.5rem;
+        50% { 
+          left: 32.5%; 
+          transform: translate(-50%, -50%) scale(var(--carousel-mid-scale)); 
+          z-index: 10;
+          filter: brightness(0.95);
         }
-        
-        .projects {
-          grid-template-columns: 1fr;
-        }
-        
-        .about-section {
-          flex-direction: column;
-        }
-        
-        .carousel-container {
-          flex-direction: column;
-        }
-        
-        .carousel-item.small,
-        .carousel-item.featured {
-          width: 100%;
+        100% { 
+          left: 50%; 
+          transform: translate(-50%, -50%) scale(1); 
+          z-index: 20;
+          filter: brightness(1); 
         }
       }
-    </style>
-  </head>
-  <body>
-    {% include header.html %}
-    <main>
-      {{ content }}
-    </main>
-    {% include footer.html %}
-  </body>
+      
+      @keyframes slideCenterToRight {
+        0% { 
+          left: 50%; 
+          transform: translate(-50%, -50%) scale(1); 
+          z-index: 20;
+          filter: brightness(1); 
+        }
+        50% { 
+          left: 67.5%; 
+          transform: translate(-50%, -50%) scale(var(--carousel-mid-scale)); 
+          z-index: 10;
+          filter: brightness(0.95);
+        }
+        100% { 
+          left: 85%; 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          z-index: 1;
+          filter: brightness(0.85); 
+        }
+      }
+      
+      @keyframes slideRightToOffscreen {
+        0% { 
+          left: 85%; 
+          transform: translate(-50%, -50%) scale(0.3); 
+          z-index: 1; 
+          opacity: 1;
+          filter: brightness(0.85); 
+        }
+        100% { 
+          left: 105%; 
+          transform: translate(-50%, -50%) scale(0); 
+          z-index: 0; 
+          opacity: 0;
+          filter: brightness(0.7); 
+        }
+      }
+      
+      @keyframes slideOffscreenToLeft {
+        0% { 
+          left: -5%; 
+          transform: translate(-50%, -50%) scale(0.1); 
+          z-index: 0; 
+          opacity: 0;
+          filter: brightness(0.7); 
+        }
+        100% { 
+          left: 15%; 
+          transform: translate(-50%, -50%) scale(0.19); 
+          z-index: 1; 
+          opacity: 1;
+          filter: brightness(0.85); 
+        }
+      }
+      
+      @keyframes slideRightToCenter {
+        0% { 
+          left: 85%; 
+          transform: translate(-50%, -50%) scale(0.3); 
+          z-index: 1;
+          filter: brightness(0.85); 
+        }
+        50% { 
+          left: 67.5%; 
+          transform: translate(-50%, -50%) scale(0.5); 
+          z-index: 10;
+          filter: brightness(0.95);
+        }
+        100% { 
+          left: 50%; 
+          transform: translate(-50%, -50%) scale(1); 
+          z-index: 20;
+          filter: brightness(1); 
+        }
+      }
+      
+      @keyframes slideCenterToLeft {
+        0% { 
+          left: 50%; 
+          transform: translate(-50%, -50%) scale(1); 
+          z-index: 20;
+          filter: brightness(1); 
+        }
+        50% { 
+          left: 32.5%; 
+          transform: translate(-50%, -50%) scale(0.5); 
+          z-index: 10;
+          filter: brightness(0.95);
+        }
+        100% { 
+          left: 15%; 
+          transform: translate(-50%, -50%) scale(0.3); 
+          z-index: 1;
+          filter: brightness(0.85); 
+        }
+      }
+      
+      @keyframes slideLeftToOffscreen {
+        0% { 
+          left: 15%; 
+          transform: translate(-50%, -50%) scale(0.3); 
+          z-index: 1; 
+          opacity: 1;
+          filter: brightness(0.85); 
+        }
+        100% { 
+          left: -5%; 
+          transform: translate(-50%, -50%) scale(0); 
+          z-index: 0; 
+          opacity: 0;
+          filter: brightness(0.7); 
+        }
+      }
+      
+      @keyframes slideOffscreenToRight {
+        0% { 
+          left: 105%; 
+          transform: translate(-50%, -50%) scale(0.25); 
+          z-index: 0; 
+          opacity: 0;
+          filter: brightness(0.7); 
+        }
+        100% { 
+          left: 85%; 
+          transform: translate(-50%, -50%) scale(0.9); 
+          z-index: 1; 
+          opacity: 1;
+          filter: brightness(0.85); 
+        }
+      }
+          
+          .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+          
+          .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+          }
+          
+          .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+          }
+          
+          .dot.active {
+            background-color: #555;
+          }
+          
+          /* Projects Button */
+          .projects-button-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+          }
+          
+          .button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid #555;
+            color: #555;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+          }
+          
+          .button:hover {
+            background: #555;
+            color: #fff;
+          }
+          
+          /* About Section */
+          .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 2rem;
+            margin: 4rem 0;
+          }
+          
+          .about-image {
+            grid-column: 1;
+            grid-row: 1;
+            text-align: center;
+          }
+          
+          .about-text {
+            grid-column: 2;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+          }
+          
+          .about-text-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          
+          .about-text-content p {
+            margin: 0;
+          }
+          
+          .buttons-container {
+            grid-column: 1 / span 2;
+            grid-row: 2;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+          }
+          
+          .contact-button-container,
+          .about-button-container {
+            margin: 0;
+          }
+          
+          /* Gallery Container */
+          .gallery-container {
+            margin: 3rem 0;
+          }
+          
+          .gallery-image {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+          
+          .footer-text {
+            text-align: center;
+            color: #999;
+            margin: 2rem 0;
+          }
+          
+          /* Responsive Adjustments */
+          @media (max-width: 768px) {
+            nav {
+              padding: 1rem;
+              gap: 1.5rem;
+              justify-content: space-between;
+            }
+            
+            main {
+              padding: 1.5rem;
+            }
+            
+            .projects {
+              grid-template-columns: 1fr;
+            }
+            
+            .about-section {
+              flex-direction: column;
+            }
+            
+            .carousel-container {
+              flex-direction: column;
+            }
+            
+            .carousel-item.small,
+            .carousel-item.featured {
+              width: 100%;
+            }
+          }
+        </style>
+        <script src="/assets/js/carousel.js"></script>
+        <script src="/assets/js/text-spacing.js"></script>
+      </head>
+      <body>
+        {% include header.html %}
+        <main>
+          {{ content }}
+        </main>
+        {% include footer.html %}
+      </body>
+    </html>
 </html>
