@@ -12,19 +12,19 @@ permalink: /
   <div class="carousel-container">
     <!-- Left project (visible but smaller) -->
     <div class="carousel-item left">
-      <img src="https://placehold.co/400x300/e2e2e2/333333?text=Project+2" alt="Project 2" />
+      <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+2" alt="Project 2" />
     </div>
     
     <!-- Center project (featured with link) -->
     <div class="carousel-item center">
       <a href="/projects/project3/">
-        <img src="https://placehold.co/800x600/e2e2e2/333333?text=Project+3" alt="Project 3" />
+        <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+3" alt="Project 3" />
       </a>
     </div>
     
     <!-- Right project (visible but smaller) -->
     <div class="carousel-item right">
-      <img src="https://placehold.co/400x300/e2e2e2/333333?text=Project+4" alt="Project 4" />
+      <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+4" alt="Project 4" />
     </div>
   </div>
   <div class="carousel-dots">
