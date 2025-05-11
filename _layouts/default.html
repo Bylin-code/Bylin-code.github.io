@@ -9,37 +9,125 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
-      /* Global variables for carousel control */
+      /* Global site configuration variables */
       :root {
-        /* Carousel image sizes (in pixels) */
-        --carousel-image-width: 420px;        /* Width of project images */
-        --carousel-image-height: 594px;       /* Height of project images */
+        /* Base spacing units */
+        --spacing-unit: 8px;
+        --spacing-small: calc(var(--spacing-unit) * 1);    /* 8px */
+        --spacing-medium: calc(var(--spacing-unit) * 2);   /* 16px */
+        --spacing-large: calc(var(--spacing-unit) * 3);    /* 24px */
+        --spacing-xlarge: calc(var(--spacing-unit) * 4);   /* 32px */
+        --spacing-xxlarge: calc(var(--spacing-unit) * 6);  /* 48px */
+        
+        /* Site width constraints */
+        --site-max-width: 1200px;
+        --site-content-width: min(1000px, 90vw);
+        --site-padding: clamp(var(--spacing-medium), 4vw, var(--spacing-xlarge));
+        
+        /* Typography */
+        --font-size-small: 14px;
+        --font-size-base: 16px;
+        --font-size-medium: 18px;
+        --font-size-large: 24px;
+        --font-size-xlarge: 32px;
+        --font-size-xxlarge: 48px;
+        --line-height-tight: 1.2;
+        --line-height-base: 1.6;
+        --letter-spacing: 0.03em;
+        
+        /* Colors */
+        --color-background: #f9f9f9;
+        --color-text: #333;
+        --color-accent: #ff4d5a;
+        --color-light: #e2e2e2;
+        --color-medium: #999;
+        --color-dark: #333;
+        
+        /* Quote container */
+        --quote-margin-top: var(--spacing-xxlarge);
+        --quote-margin-bottom: var(--spacing-xxlarge);
+        --quote-padding: var(--spacing-large);
+        --quote-font-size: var(--font-size-medium);
+        --quote-line-height: var(--line-height-base);
+        
+        /* Carousel configuration */
+        --carousel-margin-top: var(--spacing-xxlarge);
+        --carousel-margin-bottom: var(--spacing-xxlarge);
+        --carousel-height: min(660px, 70vh);
+        --carousel-container-padding: var(--spacing-medium);
+        
+        /* Carousel image sizes (responsive) */
+        --carousel-image-width: min(420px, 40vw);  /* Width of project images */
+        --carousel-image-height: min(594px, 56vw); /* Height of project images */
+        
+        /* Carousel positions */
+        --carousel-left-position: 15%;
+        --carousel-center-position: 50%;
+        --carousel-right-position: 85%;
+        --carousel-mid-left-position: 32.5%;
+        --carousel-mid-right-position: 67.5%;
         
         /* Carousel animation timing */
-        --carousel-transition-time: 0.6s;      /* Duration of all carousel transitions */
+        --carousel-transition-time: 0.6s;     /* Duration of all carousel transitions */
+        --carousel-auto-scroll-interval: 5s; /* Time between automatic slides */
         
         /* Carousel scale factors */
-        --carousel-side-scale: 0.3;            /* Scale of side images relative to center image */
-        --carousel-mid-scale: 0.5;             /* Scale for intermediate positions during transitions */
+        --carousel-side-scale: 0.3;           /* Scale of side images relative to center image */
+        --carousel-mid-scale: 0.5;            /* Scale for intermediate positions during transitions */
+        --carousel-hover-scale: 1.05;         /* Scale increase on hover */
+        --carousel-hover-brightness: 0.8;     /* Brightness decrease on hover (dimming effect) */
+        --carousel-hover-transition: 0.3s;    /* Transition time for hover effects */
+        
+        /* Carousel dots */
+        --carousel-dots-margin: var(--spacing-large);
+        --carousel-dot-size: 10px;
+        --carousel-dot-spacing: var(--spacing-small);
+        --carousel-dot-color: var(--color-light);
+        --carousel-dot-active-color: var(--color-dark);
+        
+        /* Buttons */
+        --button-margin-top: var(--spacing-large);
+        --button-margin-bottom: var(--spacing-xxlarge);
+        --button-padding-vertical: var(--spacing-medium);
+        --button-padding-horizontal: var(--spacing-large);
+        --button-border-width: 1px;
+        --button-border-radius: 0;
+        --button-font-size: var(--font-size-base);
+        --button-transition-time: 0.3s;
+        
+        /* About section */
+        --about-margin-top: var(--spacing-xxlarge);
+        --about-margin-bottom: var(--spacing-xxlarge);
+        --about-padding: var(--spacing-large);
+        --about-image-width: 400px;
+        --about-image-height: 500px;
+        --about-text-width: 550px;
+        --about-gap: var(--spacing-xlarge);
+        
+        /* Footer */
+        --footer-padding-vertical: var(--spacing-large);
+        --footer-padding-horizontal: var(--spacing-large);
+        --footer-margin-top: var(--spacing-xxlarge);
       }
       
-      /* Minimalist Light Design */
+      /* Minimalist Industrial Design */
       body {
         font-family: 'Montserrat', Arial, sans-serif;
-        background: #f9f9f9;
-        color: #333;
+        background: var(--color-background);
+        color: var(--color-text);
         margin: 0;
         padding: 0;
         min-height: 100vh;
-        letter-spacing: 0.03em;
+        letter-spacing: var(--letter-spacing);
         display: flex;
         flex-direction: column;
       }
 
       main {
-        max-width: 1200px;
-        margin: 2rem auto;
-        padding: 2rem;
+        max-width: var(--site-max-width);
+        margin: 0 auto;
+        padding: var(--site-padding);
+        flex: 1;
       }
 
       h1, h2, h3, h4, h5, h6 {
@@ -324,17 +412,18 @@
       
       /* Project Carousel */
       .project-carousel {
-        margin: 3rem 0;
+        margin: var(--carousel-margin-top) 0 var(--carousel-margin-bottom);
       }
       
       .carousel-container {
         position: relative;
-        height: 660px; /* Increased to fit the 594px images plus spacing */
-        margin: 0 auto 2rem;
+        height: var(--carousel-height);
+        margin: 0 auto var(--carousel-dots-margin);
         overflow: hidden; /* Hide items sliding off-screen */
         width: 100%;
-        max-width: 1100px;
+        max-width: var(--site-content-width);
         perspective: 1000px; /* Add perspective for better 3D effects */
+        padding: var(--carousel-container-padding);
       }
       
       .carousel-item {
@@ -347,12 +436,39 @@
         will-change: transform, left, z-index; /* Optimize for animation performance */
         box-sizing: border-box; /* Ensure padding and borders are included in dimensions */
         pointer-events: auto; /* Enable interaction */
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+      }
+      
+      /* Hover effects for each carousel item position - using appropriate transforms */
+      .carousel-item.left:hover {
+        /* Keep the same position but increase scale slightly and darken */
+        transform: translate(-50%, -50%) scale(calc(var(--carousel-side-scale) * var(--carousel-hover-scale)));
+        filter: brightness(var(--carousel-hover-brightness));
+        transition: transform var(--carousel-hover-transition) ease-in-out, filter var(--carousel-hover-transition) ease-in-out;
+        z-index: 5; /* Above normal left items but below center */
+      }
+      
+      .carousel-item.center:hover {
+        /* Keep the same position but increase scale slightly and darken */
+        transform: translate(-50%, -50%) scale(var(--carousel-hover-scale));
+        filter: brightness(var(--carousel-hover-brightness));
+        transition: transform var(--carousel-hover-transition) ease-in-out, filter var(--carousel-hover-transition) ease-in-out;
+        z-index: 21; /* Above everything */
+      }
+      
+      .carousel-item.right:hover {
+        /* Keep the same position but increase scale slightly and darken */
+        transform: translate(-50%, -50%) scale(calc(var(--carousel-side-scale) * var(--carousel-hover-scale)));
+        filter: brightness(var(--carousel-hover-brightness));
+        transition: transform var(--carousel-hover-transition) ease-in-out, filter var(--carousel-hover-transition) ease-in-out;
+        z-index: 5; /* Above normal right items but below center */
       }
       
       /* Left item styling */
       .carousel-item.left {
-        left: 15%; /* Position much further to left */
-        transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); /* Use variable for scale */
+        left: var(--carousel-left-position);
+        transform: translate(-50%, -50%) scale(var(--carousel-side-scale));
         z-index: 1;
         filter: brightness(0.85); /* Slightly dim smaller images */
         display: block !important; /* Force display */
@@ -362,7 +478,7 @@
       
       /* Center item styling */
       .carousel-item.center {
-        left: 50%;
+        left: var(--carousel-center-position);
         transform: translate(-50%, -50%) scale(1); /* Full size, centered */
         z-index: 20; /* Much higher z-index to ensure it's always on top */
         filter: brightness(1); /* Full brightness for center image */
@@ -371,8 +487,8 @@
       
       /* Right item styling */
       .carousel-item.right {
-        left: 85%; /* Position much further to right */
-        transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); /* Use variable for scale */
+        left: var(--carousel-right-position);
+        transform: translate(-50%, -50%) scale(var(--carousel-side-scale));
         z-index: 1;
         filter: brightness(0.85); /* Slightly dim smaller images */
         display: block !important; /* Force display */
@@ -388,6 +504,7 @@
         height: var(--carousel-image-height); /* Fixed height from variable */
         object-fit: cover;                    /* Ensure images fill the space properly */
         transition: all var(--carousel-transition-time) ease-out; /* Use variable for time */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
       }
       
       /* Different shadows for visual depth */
@@ -453,19 +570,19 @@
       /* Detailed keyframe animations with improved transitions */
       @keyframes slideLeftToCenter {
         0% { 
-          left: 15%; 
+          left: var(--carousel-left-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
           filter: brightness(0.85); 
         }
         50% { 
-          left: 32.5%; 
+          left: var(--carousel-mid-left-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-mid-scale)); 
           z-index: 10;
           filter: brightness(0.95);
         }
         100% { 
-          left: 50%; 
+          left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
           filter: brightness(1); 
@@ -474,19 +591,19 @@
       
       @keyframes slideCenterToRight {
         0% { 
-          left: 50%; 
+          left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
           filter: brightness(1); 
         }
         50% { 
-          left: 67.5%; 
+          left: var(--carousel-mid-right-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-mid-scale)); 
           z-index: 10;
           filter: brightness(0.95);
         }
         100% { 
-          left: 85%; 
+          left: var(--carousel-right-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
           filter: brightness(0.85); 
@@ -596,7 +713,7 @@
         }
         100% { 
           left: 85%; 
-          transform: translate(-50%, -50%) scale(0.76); 
+          transform: translate(-50%, -50%) scale(0.8); 
           z-index: 1; 
           opacity: 1;
           filter: brightness(0.85); 
@@ -612,50 +729,54 @@
           .carousel-dots {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
+            gap: var(--carousel-dot-spacing);
+            margin: var(--carousel-dots-margin) 0;
           }
           
           .dot {
-            width: 10px;
-            height: 10px;
+            width: var(--carousel-dot-size);
+            height: var(--carousel-dot-size);
             border-radius: 50%;
-            background-color: #ddd;
+            background-color: var(--carousel-dot-color);
+            transition: background-color var(--carousel-transition-time) ease;
           }
           
           .dot.active {
-            background-color: #555;
+            background-color: var(--carousel-dot-active-color);
           }
           
           /* Projects Button */
           .projects-button-container {
-            display: flex;
-            justify-content: center;
-            margin: 2rem 0;
+            text-align: center;
+            margin: var(--button-margin-top) 0 var(--button-margin-bottom);
           }
           
           .button {
             display: inline-block;
-            padding: 0.8rem 2rem;
-            background: transparent;
-            border: 1px solid #555;
-            color: #555;
+            padding: var(--button-padding-vertical) var(--button-padding-horizontal);
             text-decoration: none;
-            transition: background 0.3s, color 0.3s;
+            background: none;
+            color: var(--color-dark);
+            border: var(--button-border-width) solid var(--color-dark);
+            border-radius: var(--button-border-radius);
+            font-size: var(--button-font-size);
+            letter-spacing: var(--letter-spacing);
+            transition: all var(--button-transition-time) ease;
           }
           
           .button:hover {
-            background: #555;
-            color: #fff;
+            background: var(--color-dark);
+            color: var(--color-background);
           }
           
           /* About Section */
           .about-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: auto auto;
             grid-template-rows: auto auto;
-            gap: 2rem;
-            margin: 4rem 0;
+            gap: var(--about-gap);
+            margin: var(--about-margin-top) 0 var(--about-margin-bottom);
+            justify-content: center;
           }
           
           .about-image {
@@ -664,12 +785,20 @@
             text-align: center;
           }
           
+          .about-image img {
+            width: var(--about-image-width);
+            height: var(--about-image-height);
+            object-fit: cover;
+          }
+          
           .about-text {
             grid-column: 2;
             grid-row: 1;
             display: flex;
             flex-direction: column;
             height: 100%;
+            width: var(--about-text-width);
+            padding: var(--about-padding);
           }
           
           .about-text-content {

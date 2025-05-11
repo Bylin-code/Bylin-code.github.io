@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial configuration
   let currentIndex = 2; // Start with the third project (index 2) active
   let isAnimating = false; // Flag to prevent clicking during animations
+  let autoScrollTimerId = null; // For tracking the auto-scroll timer
+  let userInteracted = false; // Flag to track if user has interacted with carousel
   
   // Cache carousel elements for better performance
   const carousel = document.querySelector('.carousel-container');
@@ -54,18 +56,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize carousel with initial data
   updateCarouselItems();
+  updateDots();
+  
+  // Start auto-scrolling
+  startAutoScroll();
   
   // Set up event listeners for navigation
   leftItem.addEventListener('click', function() {
-    if (!isAnimating) {
-      navigateCarousel('left');
-    }
+    if (!isAnimating) navigateCarousel('left', true);
   });
   
   rightItem.addEventListener('click', function() {
-    if (!isAnimating) {
-      navigateCarousel('right');
-    }
+    if (!isAnimating) navigateCarousel('right', true);
   });
   
   // Set up dot navigation
@@ -76,6 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const direction = index > currentIndex ? 'right' : 'left';
         // How many steps to take
         const steps = Math.abs(index - currentIndex);
+        
+        // Mark as user interaction
+        userInteracted = true;
+        resetUserInteracted();
         
         // For multiple steps, we'll chain the animations
         navigateCarousel(direction, function() {
@@ -99,9 +105,58 @@ document.addEventListener('DOMContentLoaded', function() {
     return seconds * 1000; // Convert to milliseconds
   }
   
+  // Get the auto-scroll interval from CSS variables
+  function getAutoScrollIntervalMs() {
+    // Get the CSS variable value
+    const intervalTimeStr = getComputedStyle(document.documentElement)
+      .getPropertyValue('--carousel-auto-scroll-interval').trim();
+    
+    // Convert to milliseconds (assumes the format is always in seconds with 's' suffix)
+    const seconds = parseFloat(intervalTimeStr);
+    return seconds * 1000; // Convert to milliseconds
+  }
+  
+  // Start auto-scrolling
+  function startAutoScroll() {
+    // Clear any existing timer first
+    if (autoScrollTimerId) {
+      clearInterval(autoScrollTimerId);
+    }
+    
+    // Set up a new timer to auto-scroll the carousel
+    autoScrollTimerId = setInterval(() => {
+      // Only auto-scroll if not currently animating and user hasn't interacted recently
+      if (!isAnimating && !userInteracted) {
+        navigateCarousel('right');
+      }
+    }, getAutoScrollIntervalMs());
+  }
+  
+  // Stop auto-scrolling
+  function stopAutoScroll() {
+    if (autoScrollTimerId) {
+      clearInterval(autoScrollTimerId);
+      autoScrollTimerId = null;
+    }
+  }
+  
+  // Reset user interaction flag after a delay
+  function resetUserInteracted() {
+    // After 10 seconds of no interaction, reset the flag to allow auto-scrolling again
+    setTimeout(() => {
+      userInteracted = false;
+    }, 10000);
+  }
+  
   // Main carousel navigation function
   function navigateCarousel(direction, callback) {
     isAnimating = true;
+    
+    // If this is triggered by a user action, set the flag
+    if (callback) {
+      userInteracted = true;
+      resetUserInteracted();
+    }
     updateDots(); // Update dots to match current position
     
     if (direction === 'left') {
