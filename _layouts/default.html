@@ -8,7 +8,292 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <style>
+      /* Industrial Minimalist Design */
+      body {
+        font-family: 'Montserrat Alternates', Arial, sans-serif;
+        background: #121212;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        letter-spacing: 0.03em;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #181818;
+        border: 1px solid #333;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat Alternates', Arial, sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        margin-bottom: 1em;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        position: relative;
+        padding-bottom: 0.5em;
+      }
+
+      h1:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: #ff4d5a;
+      }
+
+      /* Industrial Navigation Bar */
+      nav {
+        display: flex;
+        gap: 3rem;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 1.5rem 3rem;
+        background: #0a0a0a;
+        border-bottom: 1px solid #333;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      nav a {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5em;
+        position: relative;
+        transition: color 0.3s;
+      }
+
+      nav a:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #ff4d5a;
+        transition: width 0.3s ease;
+      }
+
+      nav a:hover, nav a:focus {
+        color: #fff;
+      }
+
+      nav a:hover:before, nav a:focus:before {
+        width: 100%;
+      }
+
+      /* Minimal Footer */
+      footer {
+        text-align: center;
+        padding: 2rem 0;
+        color: #888;
+        background: #0a0a0a;
+        border-top: 1px solid #333;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+      }
+
+      /* Industrial Home Page */
+      .home {
+        text-align: left;
+        margin-top: 4rem;
+      }
+
+      .home h1 {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+      }
+
+      .home p {
+        max-width: 600px;
+        line-height: 1.6;
+        margin-bottom: 3rem;
+      }
+
+      .home-links {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+
+      .home-links a {
+        background: transparent;
+        border: 2px solid #ff4d5a;
+        color: #ff4d5a;
+        padding: 0.8em 2em;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: background 0.3s, color 0.3s;
+        position: relative;
+      }
+
+      .home-links a:hover {
+        background: #ff4d5a;
+        color: #0a0a0a;
+      }
+
+      /* Industrial Portfolio Grid */
+      .portfolio {
+        margin-top: 3rem;
+      }
+
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background: #202020;
+        padding: 0;
+        border: 1px solid #333;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .project-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .project-card-content {
+        padding: 1.5rem;
+      }
+
+      .project-card h2 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.2rem;
+      }
+
+      .project-card p {
+        color: #aaa;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .project-tag {
+        display: inline-block;
+        background: #333;
+        color: #e0e0e0;
+        padding: 0.3em 0.8em;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* About & Contact Pages */
+      .about, .contact {
+        max-width: 800px;
+        margin: 2rem auto 0;
+        background: #202020;
+        padding: 3rem;
+        border: 1px solid #333;
+      }
+
+      .about p, .contact p {
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Form Elements */
+      input, textarea, button {
+        font-family: 'Montserrat Alternates', Arial, sans-serif;
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        background: #181818;
+        border: 1px solid #333;
+        color: #e0e0e0;
+        font-size: 1rem;
+      }
+
+      button {
+        background: #ff4d5a;
+        color: #0a0a0a;
+        border: none;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: #e63946;
+      }
+
+      /* Industrial Separators */
+      .separator {
+        width: 100%;
+        height: 1px;
+        background: #333;
+        margin: 3rem 0;
+        position: relative;
+      }
+
+      .separator:after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        background: #ff4d5a;
+        top: -1px;
+        left: 0;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        nav {
+          padding: 1rem;
+          gap: 1.5rem;
+          justify-content: center;
+        }
+        
+        main {
+          padding: 1.5rem;
+        }
+        
+        .projects {
+          grid-template-columns: 1fr;
+        }
+        
+        .home h1 {
+          font-size: 2.5rem;
+        }
+        
+        .about, .contact {
+          padding: 2rem;
+        }
+      }
+    </style>
   </head>
   <body>
     {% include header.html %}
