@@ -6,43 +6,37 @@ document.addEventListener('DOMContentLoaded', function() {
       id: 1, 
       title: 'Smart Home Control System', 
       url: '/projects/project1/',
-      image: 'https://placehold.co/800x600/e2e2e2/333333?text=Project+1'
+      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+1'
     },
     { 
       id: 2, 
       title: 'Portable Audio Interface', 
       url: '/projects/project2/',
-      image: 'https://placehold.co/800x600/e2e2e2/333333?text=Project+2'
+      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+2'
     },
     { 
       id: 3, 
       title: 'Ergonomic Desktop Workstation', 
       url: '/projects/project3/',
-      image: 'https://placehold.co/800x600/e2e2e2/333333?text=Project+3'
+      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+3'
     },
     { 
       id: 4, 
       title: 'Modular Lighting System', 
       url: '/projects/project4/',
-      image: 'https://placehold.co/800x600/e2e2e2/333333?text=Project+4'
+      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+4'
     },
     { 
       id: 5, 
       title: 'Sustainable Water Filtration', 
       url: '/projects/project5/',
-      image: 'https://placehold.co/800x600/e2e2e2/333333?text=Project+5'
+      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+5'
     },
     { 
       id: 6, 
       title: 'Wearable Health Monitor', 
       url: '/projects/project6/',
-      image: 'https://placehold.co/800x600/e2e2e2/333333?text=Project+6'
-    },
-    { 
-      id: 7, 
-      title: 'Smart Kitchen Appliance', 
-      url: '/projects/project7/',
-      image: 'https://placehold.co/800x600/e2e2e2/333333?text=Project+7'
+      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+6'
     }
   ];
   

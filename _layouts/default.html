@@ -16,7 +16,7 @@
         --carousel-image-height: 594px;       /* Height of project images */
         
         /* Carousel animation timing */
-        --carousel-transition-time: 0.4s;      /* Duration of all carousel transitions */
+        --carousel-transition-time: 0.6s;      /* Duration of all carousel transitions */
         
         /* Carousel scale factors */
         --carousel-side-scale: 0.3;            /* Scale of side images relative to center image */
@@ -513,14 +513,14 @@
       @keyframes slideOffscreenToLeft {
         0% { 
           left: -5%; 
-          transform: translate(-50%, -50%) scale(0.1); 
+          transform: translate(-50%, -50%) scale(0); 
           z-index: 0; 
           opacity: 0;
           filter: brightness(0.7); 
         }
         100% { 
           left: 15%; 
-          transform: translate(-50%, -50%) scale(0.19); 
+          transform: translate(-50%, -50%) scale(0.3); 
           z-index: 1; 
           opacity: 1;
           filter: brightness(0.85); 
@@ -596,7 +596,7 @@
         }
         100% { 
           left: 85%; 
-          transform: translate(-50%, -50%) scale(0.9); 
+          transform: translate(-50%, -50%) scale(0.76); 
           z-index: 1; 
           opacity: 1;
           filter: brightness(0.85); 
