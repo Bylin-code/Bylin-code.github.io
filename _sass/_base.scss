@@ -1,0 +1,65 @@
+// _sass/_base.scss
+body {
+  font-family: 'Montserrat Alternates', Arial, sans-serif;
+  background: #f7f7f7;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5em;
+}
+
+main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+nav {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+  background: #eaeaea;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+nav a {
+  color: #222;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 0 1rem 0;
+  color: #888;
+  background: #fafafa;
+  border-top: 1px solid #e1e1e1;
+  font-size: 0.95em;
+}
+
+.project-card {
+  background: #f4f4f4;
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.post-meta, .post-date {
+  color: #888;
+  font-size: 0.95em;
+  margin-bottom: 1em;
+}
