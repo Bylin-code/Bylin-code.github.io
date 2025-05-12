@@ -5,36 +5,42 @@ document.addEventListener('DOMContentLoaded', function() {
     { 
       id: 1, 
       title: 'Smart Home Control System', 
+      code: 'SMART',
       url: '/projects/project1/',
       image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+1'
     },
     { 
       id: 2, 
       title: 'Portable Audio Interface', 
+      code: 'AUDIO',
       url: '/projects/project2/',
       image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+2'
     },
     { 
       id: 3, 
       title: 'Ergonomic Desktop Workstation', 
+      code: 'ERGO',
       url: '/projects/project3/',
       image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+3'
     },
     { 
       id: 4, 
       title: 'Modular Lighting System', 
+      code: 'LIGHT',
       url: '/projects/project4/',
       image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+4'
     },
     { 
       id: 5, 
       title: 'Sustainable Water Filtration', 
+      code: 'WATER',
       url: '/projects/project5/',
       image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+5'
     },
     { 
       id: 6, 
       title: 'Wearable Health Monitor', 
+      code: 'PULSE',
       url: '/projects/project6/',
       image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+6'
     }
@@ -177,6 +183,14 @@ document.addEventListener('DOMContentLoaded', function() {
       rightItem.classList.add('slide-right-to-offscreen');
       offscreenElement.classList.add('slide-offscreen-to-left');
       
+      // Show the text overlay halfway through the animation
+      setTimeout(() => {
+        const overlayElement = offscreenElement.querySelector('.project-code-overlay');
+        if (overlayElement) {
+          overlayElement.style.display = 'flex';
+        }
+      }, Math.floor(getTransitionTimeMs() / 2)); // Show text halfway through the animation
+      
       // 3. After animation completes, clean up and update
       setTimeout(() => {
         // Update index for next slide
@@ -210,6 +224,13 @@ document.addEventListener('DOMContentLoaded', function() {
       const offscreenElement = createProjectElement(newRightIndex, 'offscreen-right');
       carousel.appendChild(offscreenElement);
       
+      // 1.1 Ensure text overlay is initially visible for the animation
+      const overlayElement = offscreenElement.querySelector('.project-code-overlay');
+      if (overlayElement) {
+        // Make sure text is visible from the start for right transitions
+        overlayElement.style.display = 'flex';
+      }
+      
       // 2. Apply animation classes for smooth slide transition
       // Force a reflow before adding animation classes
       void offscreenElement.offsetWidth;
@@ -219,6 +240,14 @@ document.addEventListener('DOMContentLoaded', function() {
       centerItem.classList.add('slide-center-to-left');
       leftItem.classList.add('slide-left-to-offscreen');
       offscreenElement.classList.add('slide-offscreen-to-right');
+      
+      // Show the text overlay halfway through the animation
+      setTimeout(() => {
+        const overlayElement = offscreenElement.querySelector('.project-code-overlay');
+        if (overlayElement) {
+          overlayElement.style.display = 'flex';
+        }
+      }, Math.floor(getTransitionTimeMs() / 2)); // Show text halfway through the animation
       
       // 3. After animation completes, clean up and update
       setTimeout(() => {
@@ -251,7 +280,18 @@ document.addEventListener('DOMContentLoaded', function() {
   function createProjectElement(projectIndex, positionClass) {
     const element = document.createElement('div');
     element.className = `carousel-item ${positionClass}`;
-    element.innerHTML = `<img src="${projects[projectIndex].image}" alt="${projects[projectIndex].title}" />`;
+    
+    // Only hide text for offscreen-left, but show for offscreen-right (to fix animation issue)
+    const showTextInitially = positionClass !== 'offscreen-left';
+    
+    element.innerHTML = `
+      <div class="project-image-container">
+        <img src="${projects[projectIndex].image}" alt="${projects[projectIndex].title}" />
+        <div class="project-code-overlay" style="${!showTextInitially ? 'display: none;' : ''}">
+          ${projects[projectIndex].code.split('').map(letter => `<span>${letter}</span>`).join('')}
+        </div>
+      </div>
+    `;
     return element;
   }
   
@@ -267,13 +307,36 @@ document.addEventListener('DOMContentLoaded', function() {
     rightItem.innerHTML = '';
     
     // Update left item with project
-    leftItem.innerHTML = `<img src="${projects[leftIndex].image}" alt="${projects[leftIndex].title}" />`;
+    leftItem.innerHTML = `
+      <div class="project-image-container">
+        <img src="${projects[leftIndex].image}" alt="${projects[leftIndex].title}" />
+        <div class="project-code-overlay">
+          ${projects[leftIndex].code.split('').map(letter => `<span>${letter}</span>`).join('')}
+        </div>
+      </div>
+    `;
     
     // Update center item with project (with link)
-    centerItem.innerHTML = `<a href="${projects[currentIndex].url}"><img src="${projects[currentIndex].image}" alt="${projects[currentIndex].title}" /></a>`;
+    centerItem.innerHTML = `
+      <a href="${projects[currentIndex].url}">
+        <div class="project-image-container">
+          <img src="${projects[currentIndex].image}" alt="${projects[currentIndex].title}" />
+          <div class="project-code-overlay">
+            ${projects[currentIndex].code.split('').map(letter => `<span>${letter}</span>`).join('')}
+          </div>
+        </div>
+      </a>
+    `;
     
     // Update right item with project
-    rightItem.innerHTML = `<img src="${projects[rightIndex].image}" alt="${projects[rightIndex].title}" />`;
+    rightItem.innerHTML = `
+      <div class="project-image-container">
+        <img src="${projects[rightIndex].image}" alt="${projects[rightIndex].title}" />
+        <div class="project-code-overlay">
+          ${projects[rightIndex].code.split('').map(letter => `<span>${letter}</span>`).join('')}
+        </div>
+      </div>
+    `;
   }
   
   // Update dot indicators

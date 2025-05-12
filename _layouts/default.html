@@ -71,6 +71,11 @@
         --carousel-transition-time: 0.6s;     /* Duration of all carousel transitions */
         --carousel-auto-scroll-interval: 5s; /* Time between automatic slides */
         
+        /* Project code overlay */
+        --project-code-font-size: 4rem;    /* Size of the vertical project code letters */
+        --project-code-letter-spacing: 0.5rem; /* Space between vertical letters */
+        --project-code-padding: 1.5rem;    /* Padding from edge of image */
+        
         /* Carousel scale factors */
         --carousel-side-scale: 0.3;           /* Scale of side images relative to center image */
         --carousel-mid-scale: 0.5;            /* Scale for intermediate positions during transitions */
@@ -410,11 +415,46 @@
         line-height: 1.6;
       }
       
-      /* Project Carousel */
+      /* Project carousel */
       .project-carousel {
-        margin: var(--carousel-margin-top) 0 var(--carousel-margin-bottom);
+        margin-top: var(--carousel-margin-top);
+        margin-bottom: var(--carousel-margin-bottom);
+        position: relative;
+        width: 100%;
+        height: var(--carousel-height);
+        overflow: hidden;
       }
       
+      /* Project image container and code overlay */
+      .project-image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      
+      /* Project code overlay - base styling */
+      .project-code-overlay {
+        position: absolute;
+        top: var(--project-code-padding);
+        left: var(--project-code-padding);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align to left edge */
+        pointer-events: none; /* Allows clicking through to the image */
+      }
+      
+      .project-code-overlay span {
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: var(--project-code-font-size);
+        line-height: 0.9;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        margin-bottom: var(--project-code-letter-spacing);
+      }
+      
+      /* Carousel container */
       .carousel-container {
         position: relative;
         height: var(--carousel-height);
@@ -706,7 +746,7 @@
       @keyframes slideOffscreenToRight {
         0% { 
           left: 105%; 
-          transform: translate(-50%, -50%) scale(0.25); 
+          transform: translate(-50%, -50%) scale(0); 
           z-index: 0; 
           opacity: 0;
           filter: brightness(0.7); 
