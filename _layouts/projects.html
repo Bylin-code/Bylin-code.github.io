@@ -76,6 +76,14 @@ layout: default
     font-size: var(--font-size-xxlarge);
     margin-bottom: var(--spacing-xlarge);
     text-align: center;
+    border-bottom: none;
+    position: relative;
+  }
+  
+  /* Remove any default horizontal lines that might be added by browsers */
+  .portfolio h1::after,
+  .portfolio h1::before {
+    display: none;
   }
   
   .projects-grid {

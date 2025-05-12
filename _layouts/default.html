@@ -232,6 +232,17 @@
         }
       }
       
+      /* Global heading styles - no horizontal bars */
+      h1 {
+        border-bottom: none;
+        position: relative;
+      }
+      
+      h1::after,
+      h1::before {
+        display: none;
+      }
+      
       /* Media query for smaller screens */
       @media (max-width: 600px) {
         .quote-text::before,

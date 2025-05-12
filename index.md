@@ -84,7 +84,8 @@ permalink: /
   </div>
   <div class="about-text">
     <div class="about-text-content" id="about-text-content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus</p>
+      <p>I'm a Computer Engineering student at Northwestern, always diving into projects that mix hardware, software, and creativity. I’ve worked on everything from building robotic systems to designing interactive MIDI controllers. I’m also excited about turning my tech ideas into real products, and when I’m not doing that, you’ll find me involved in a cappella and exploring music production.
+</p>
     </div>
   </div>
   <div class="buttons-container">
