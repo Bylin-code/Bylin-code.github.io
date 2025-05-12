@@ -1,44 +1,74 @@
 // Project carousel functionality
 document.addEventListener('DOMContentLoaded', function() {
-  // Project data - would typically come from your CMS or data source
-  const projects = [
-    { 
-      id: 1, 
-      title: 'Smart Home Control System', 
-      url: '/projects/project1/',
-      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+1'
-    },
-    { 
-      id: 2, 
-      title: 'Portable Audio Interface', 
-      url: '/projects/project2/',
-      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+2'
-    },
-    { 
-      id: 3, 
-      title: 'Ergonomic Desktop Workstation', 
-      url: '/projects/project3/',
-      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+3'
-    },
-    { 
-      id: 4, 
-      title: 'Modular Lighting System', 
-      url: '/projects/project4/',
-      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+4'
-    },
-    { 
-      id: 5, 
-      title: 'Sustainable Water Filtration', 
-      url: '/projects/project5/',
-      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+5'
-    },
-    { 
-      id: 6, 
-      title: 'Wearable Health Monitor', 
-      url: '/projects/project6/',
-      image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+6'
+  // Function to fetch project data from Jekyll posts
+  function getProjectsFromPosts() {
+    // Get all project posts from the page
+    const projectPosts = document.querySelectorAll('[data-project-post]');
+    const projectData = [];
+    
+    // If we have project posts on the page, use their data
+    if (projectPosts.length > 0) {
+      projectPosts.forEach(post => {
+        projectData.push({
+          id: post.getAttribute('data-project-id'),
+          title: post.getAttribute('data-project-title'),
+          url: post.getAttribute('data-project-url'),
+          image: post.getAttribute('data-project-image'),
+          code: post.getAttribute('data-project-code')
+        });
+      });
+      return projectData;
     }
-  ];
+    
+    // Fallback to placeholder data if no posts are found
+    return [
+      { 
+        id: 1, 
+        title: 'Smart Home Control System', 
+        url: '/projects/project1/',
+        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+1',
+        code: 'SMART'
+      },
+      { 
+        id: 2, 
+        title: 'Portable Audio Interface', 
+        url: '/projects/project2/',
+        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+2',
+        code: 'AUDIO'
+      },
+      { 
+        id: 3, 
+        title: 'Ergonomic Desktop Workstation', 
+        url: '/projects/project3/',
+        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+3',
+        code: 'ERGO'
+      },
+      { 
+        id: 4, 
+        title: 'Modular Lighting System', 
+        url: '/projects/project4/',
+        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+4',
+        code: 'LIGHT'
+      },
+      { 
+        id: 5, 
+        title: 'Sustainable Water Filtration', 
+        url: '/projects/project5/',
+        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+5',
+        code: 'WATER'
+      },
+      { 
+        id: 6, 
+        title: 'Wearable Health Monitor', 
+        url: '/projects/project6/',
+        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+6',
+        code: 'HEALTH'
+      }
+    ];
+  }
+  
+  // Get project data
+  const projects = getProjectsFromPosts();
   
   // Initial configuration
   let currentIndex = 2; // Start with the third project (index 2) active
@@ -57,6 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize carousel with initial data
   updateCarouselItems();
   updateDots();
+  
+  // Trigger initial project code reveal after a short delay
+  setTimeout(() => {
+    revealProjectCode();
+  }, 0);
   
   // Start auto-scrolling
   startAutoScroll();
@@ -195,6 +230,9 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCarouselItems();
         updateDots();
         
+        // Trigger the project code reveal animation
+        revealProjectCode();
+        
         // Animation finished
         isAnimating = false;
         
@@ -226,9 +264,9 @@ document.addEventListener('DOMContentLoaded', function() {
         currentIndex = (currentIndex + 1) % projects.length;
         
         // Clean up animation classes
-        rightItem.classList.remove('slide-right-to-center');
-        centerItem.classList.remove('slide-center-to-left');
         leftItem.classList.remove('slide-left-to-offscreen');
+        centerItem.classList.remove('slide-center-to-left');
+        rightItem.classList.remove('slide-right-to-center');
         offscreenElement.classList.remove('slide-offscreen-to-right');
         
         // Remove temporary element
@@ -237,6 +275,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update carousel with new order
         updateCarouselItems();
         updateDots();
+        
+        // Trigger the project code reveal animation
+        revealProjectCode();
         
         // Animation finished
         isAnimating = false;
@@ -249,10 +290,25 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Helper function to create a project element
   function createProjectElement(projectIndex, positionClass) {
-    const element = document.createElement('div');
-    element.className = `carousel-item ${positionClass}`;
-    element.innerHTML = `<img src="${projects[projectIndex].image}" alt="${projects[projectIndex].title}" />`;
-    return element;
+    const div = document.createElement('div');
+    div.className = `carousel-item ${positionClass}`;
+    div.setAttribute('data-project-code', projects[projectIndex].code);
+    
+    // Create image container for overlay
+    // Only add project code overlay for center position
+    const projectCodeOverlay = positionClass === 'center' ? 
+      `<div class="project-code-overlay">
+        ${projects[projectIndex].code.split('').map(letter => `<span class="hidden">${letter}</span>`).join('')}
+      </div>` : '';
+    
+    div.innerHTML = `
+      <div class="project-image-container">
+        <img src="${projects[projectIndex].image}" alt="${projects[projectIndex].title}">
+        ${projectCodeOverlay}
+      </div>
+    `;
+    
+    return div;
   }
   
   // Update carousel items with current projects
@@ -267,13 +323,26 @@ document.addEventListener('DOMContentLoaded', function() {
     rightItem.innerHTML = '';
     
     // Update left item with project
-    leftItem.innerHTML = `<img src="${projects[leftIndex].image}" alt="${projects[leftIndex].title}" />`;
+    leftItem.innerHTML = `<div class="project-image-container"><img src="${projects[leftIndex].image}" alt="${projects[leftIndex].title}" /></div>`;
     
-    // Update center item with project (with link)
-    centerItem.innerHTML = `<a href="${projects[currentIndex].url}"><img src="${projects[currentIndex].image}" alt="${projects[currentIndex].title}" /></a>`;
+    // Update center item with project (with link and project code overlay)
+    const projectCode = projects[currentIndex].code;
+    centerItem.innerHTML = `
+      <div class="project-image-container">
+        <a href="${projects[currentIndex].url}">
+          <img src="${projects[currentIndex].image}" alt="${projects[currentIndex].title}" />
+        </a>
+        <div class="project-code-overlay">
+          ${projectCode.split('').map(letter => `<span class="hidden">${letter}</span>`).join('')}
+        </div>
+      </div>
+    `;
     
     // Update right item with project
-    rightItem.innerHTML = `<img src="${projects[rightIndex].image}" alt="${projects[rightIndex].title}" />`;
+    rightItem.innerHTML = `<div class="project-image-container"><img src="${projects[rightIndex].image}" alt="${projects[rightIndex].title}" /></div>`;
+    
+    // Reset the project code animation
+    resetProjectCodeAnimation();
   }
   
   // Update dot indicators
@@ -285,5 +354,56 @@ document.addEventListener('DOMContentLoaded', function() {
         dot.classList.remove('active');
       }
     });
+  }
+  
+  // Function to reset project code animation by hiding all letters
+  function resetProjectCodeAnimation() {
+    const centerItem = document.querySelector('.carousel-item.center');
+    if (!centerItem) return;
+    
+    const letters = centerItem.querySelectorAll('.project-code-overlay span');
+    if (!letters.length) return;
+    
+    // Reset all letters to hidden state
+    letters.forEach(letter => {
+      letter.classList.remove('reveal');
+      letter.classList.add('hidden');
+    });
+  }
+
+  // Function to reveal project code letters one by one with animation
+  function revealProjectCode() {
+    // Get the center item's project code overlay
+    const centerItem = document.querySelector('.carousel-item.center');
+    if (!centerItem) return;
+    
+    const letters = centerItem.querySelectorAll('.project-code-overlay span');
+    if (!letters.length) return;
+    
+    // Reset all letters to hidden state first
+    letters.forEach(letter => {
+      letter.classList.remove('reveal');
+      letter.classList.add('hidden');
+    });
+    
+    // Get the reveal delay between letters from CSS variable
+    const revealDelay = parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--project-code-reveal-delay').trim()) * 1000;
+    
+    // For transitions, use the transition time from CSS
+    const transitionTime = parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--carousel-transition-time').trim()) * 1000;
+    
+    // Start revealing letters immediately after transition completes
+    // with no additional delay
+    setTimeout(() => {
+      // Reveal letters one by one with delay
+      letters.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.classList.remove('hidden');
+          letter.classList.add('reveal');
+        }, index * revealDelay);
+      });
+    }, transitionTime);
   }
 });

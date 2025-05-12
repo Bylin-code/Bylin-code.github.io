@@ -1,0 +1,91 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="hero-content">
+    <h1>Brady Lin</h1>
+    <p>Industrial & Electronic Product Designer</p>
+  </div>
+</section>
+
+<section class="quote-container">
+  <!-- Random quote will be displayed here by quotes.js -->
+</section>
+
+<section class="project-carousel">
+  <div class="carousel-container">
+    {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
+    {% for post in sorted_posts limit:6 %}
+      <div class="carousel-item {% if forloop.index0 == 0 %}center{% elsif forloop.index0 == 1 %}right{% elsif forloop.index0 == sorted_posts.size | minus: 1 %}left{% else %}offscreen-right{% endif %}" data-project-code="{{ post.project_code }}">
+        <div class="project-image-container">
+          {% if post.image %}
+            <img src="{{ post.image }}" alt="{{ post.title }}">
+          {% else %}
+            <img src="https://placehold.co/420x594/e2e2e2/333333?text={{ post.title | url_encode }}" alt="{{ post.title }}">
+          {% endif %}
+          
+          <!-- Hard-coded overlay that will definitely show -->
+          <div class="project-code-overlay" style="color: white; font-size: 4rem; font-weight: bold; position: absolute; top: 1.5rem; left: 1.5rem; z-index: 100; text-shadow: 2px 2px 4px black;">
+            {% if post.title contains 'Smart Home' %}
+              <span>S</span>
+              <span>M</span>
+              <span>A</span>
+              <span>R</span>
+              <span>T</span>
+            {% elsif post.title contains 'Audio' %}
+              <span>A</span>
+              <span>U</span>
+              <span>D</span>
+              <span>I</span>
+              <span>O</span>
+            {% elsif post.title contains 'Water' %}
+              <span>W</span>
+              <span>A</span>
+              <span>T</span>
+              <span>E</span>
+              <span>R</span>
+            {% elsif post.title contains 'Health' %}
+              <span>H</span>
+              <span>E</span>
+              <span>A</span>
+              <span>L</span>
+              <span>T</span>
+              <span>H</span>
+            {% elsif post.title contains 'Lighting' %}
+              <span>L</span>
+              <span>I</span>
+              <span>G</span>
+              <span>H</span>
+              <span>T</span>
+            {% else %}
+              <span>P</span>
+              <span>R</span>
+              <span>O</span>
+              <span>J</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    
+    <!-- Navigation arrows -->
+    <button class="carousel-prev-btn" aria-label="Previous Project">
+      <span>◀</span>
+    </button>
+    <button class="carousel-next-btn" aria-label="Next Project">
+      <span>▶</span>
+    </button>
+  </div>
+  
+  <!-- Carousel dots -->
+  <div class="carousel-dots">
+    {% for post in sorted_posts limit:6 %}
+      <span class="dot {% if forloop.index0 == 0 %}active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="about">
+  <h2>About Me</h2>
+  <p>I'm an industrial designer focused on creating minimalist, functional products with thoughtful details. My work spans consumer electronics, furniture, and lifestyle accessories with a focus on sustainable materials and manufacturing processes.</p>
+</section>

@@ -49,6 +49,11 @@
         --quote-padding: var(--spacing-large);
         --quote-font-size: var(--font-size-medium);
         --quote-line-height: var(--line-height-base);
+        --quote-font-style: italic;
+        --quote-color: var(--color-dark);
+        --quote-author-color: var(--color-accent);
+        --quote-border-width: 3px;
+        --quote-border-color: #e2e2e2;
         
         /* Carousel configuration */
         --carousel-margin-top: var(--spacing-xxlarge);
@@ -77,6 +82,14 @@
         --carousel-hover-scale: 1.05;         /* Scale increase on hover */
         --carousel-hover-brightness: 0.8;     /* Brightness decrease on hover (dimming effect) */
         --carousel-hover-transition: 0.3s;    /* Transition time for hover effects */
+        
+        /* Project code overlay */
+        --project-code-font-size-base: 4.5rem;   /* Base size for the vertical project code letters */
+        --project-code-font-size: calc(var(--carousel-image-width) / 7);  /* Responsive size based on image width */
+        --project-code-letter-spacing: calc(var(--carousel-image-width) / 35); /* Responsive spacing */
+        --project-code-padding: calc(var(--carousel-image-width) / 20);  /* Responsive padding */
+        --project-code-reveal-delay: 0.15s;    /* Delay between each letter reveal */
+        --project-code-reveal-duration: 0.4s;  /* Duration of each letter reveal animation */
         
         /* Carousel dots */
         --carousel-dots-margin: var(--spacing-large);
@@ -108,6 +121,72 @@
         --footer-padding-vertical: var(--spacing-large);
         --footer-padding-horizontal: var(--spacing-large);
         --footer-margin-top: var(--spacing-xxlarge);
+      }
+      
+      /* Quote Container Styles */
+      .quote-container {
+        width: 100%;
+        margin: var(--quote-margin-top) auto var(--quote-margin-bottom);
+        padding: 0 var(--spacing-medium);
+        text-align: center;
+        position: relative;
+        font-family: 'Montserrat', Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+      
+      .quote-text {
+        font-size: clamp(16px, 2.5vw, var(--quote-font-size));
+        line-height: var(--quote-line-height);
+        color: #000000;
+        font-style: var(--quote-font-style);
+        margin-bottom: var(--spacing-medium);
+        position: relative;
+        padding: 0;
+        width: 100%;
+        max-width: min(800px, 90%);
+        box-sizing: border-box;
+      }
+      
+      .quote-text::before,
+      .quote-text::after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: var(--quote-border-width);
+        background-color: var(--quote-border-color);
+      }
+      
+      .quote-text::before {
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .quote-text::after {
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .quote-author {
+        font-size: clamp(14px, 2vw, calc(var(--quote-font-size) * 0.85));
+        color: #999999;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        width: 100%;
+        text-align: center;
+      }
+      
+      /* Media query for smaller screens */
+      @media (max-width: 600px) {
+        .quote-text::before,
+        .quote-text::after {
+          width: 30px;
+        }
       }
       
       /* Minimalist Industrial Design */
@@ -413,6 +492,70 @@
       /* Project Carousel */
       .project-carousel {
         margin: var(--carousel-margin-top) 0 var(--carousel-margin-bottom);
+      }
+      
+      /* Project image container and code overlay */
+      .project-image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      
+      /* Project code overlay - vertical text styling */
+      .project-code-overlay {
+        position: absolute;
+        top: var(--project-code-padding);
+        left: var(--project-code-padding);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align to left edge */
+        pointer-events: none; /* Allows clicking through to the image */
+        z-index: 100; /* Ensure it's above the image */
+      }
+      
+      .project-code-overlay span {
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: var(--project-code-font-size);
+        line-height: 0.9;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        margin-bottom: var(--project-code-letter-spacing);
+        transition: opacity var(--project-code-reveal-duration) ease,
+                    transform var(--project-code-reveal-duration) ease;
+      }
+      
+      /* Media queries for responsive font sizing */
+      @media (max-width: 768px) {
+        :root {
+          --project-code-font-size: calc(var(--carousel-image-width) / 8);
+          --project-code-letter-spacing: calc(var(--carousel-image-width) / 40);
+        }
+      }
+      
+      @media (max-width: 480px) {
+        :root {
+          --project-code-font-size: calc(var(--carousel-image-width) / 9);
+          --project-code-letter-spacing: calc(var(--carousel-image-width) / 45);
+        }
+      }
+      
+      /* Hidden state for letters before reveal */
+      .project-code-overlay span.hidden {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      
+      /* Animation for letter reveal */
+      .project-code-overlay span.reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Only show project code on center item */
+      .carousel-item:not(.center) .project-code-overlay {
+        display: none;
       }
       
       .carousel-container {
@@ -832,9 +975,10 @@
           }
           
           .gallery-image {
-            width: 100%;
+            width: 80%;  /* Changed from 100% to 80% */
             height: auto;
             display: block;
+            margin: 0 auto;  /* Center the image if it's not full width */
           }
           
           .footer-text {
@@ -874,6 +1018,7 @@
           }
         </style>
         <script src="/assets/js/carousel.js"></script>
+        <script src="/assets/js/quotes.js"></script>
         <script src="/assets/js/text-spacing.js"></script>
       </head>
       <body>
