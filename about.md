@@ -40,9 +40,9 @@ permalink: /about/
     </div>
   </div>
   
-  <!-- Contact button -->
-  <div class="contact-button-container">
-    <a href="/contact/" class="button">Contact</a>
+  <!-- Projects button -->
+  <div class="projects-button-container">
+    <a href="/projects/" class="button">Projects</a>
   </div>
 </section>
 
@@ -78,36 +78,7 @@ permalink: /about/
     min-height: 500px;
   }
   
-  /* Vertical text styling */
-  .vertical-text {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-around;
-    color: #333;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 300;
-    font-size: clamp(2rem, 3.5vw, 3.5rem);
-    text-transform: uppercase;
-    padding: 0;
-    z-index: 10;
-    width: 5%;
-  }
-  
-  .vertical-text span {
-    line-height: 1;
-    letter-spacing: 0;
-    padding: 10px 0;
-  }
-  
-  .left-featured {
-    text-align: center;
-  }
-  
-  .right-featured {
-    text-align: center;
-  }
+  /* Using global vertical text styling from default.html */
   
   /* Define necessary variables */
   :root {
@@ -121,13 +92,15 @@ permalink: /about/
     margin: 0 auto;
     padding: 0 var(--spacing-large);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
   
   .about-bio p {
     font-family: 'Montserrat', Arial, sans-serif;
-    font-size: clamp(12px, 2vw, 22px);
-    line-height: clamp(1.2, 2vw, 1.7);
+    font-size: clamp(16px, 2.5vw, 26px);
+    line-height: 3.5;
     margin: 0;
     color: var(--color-dark);
     text-align: justify;
@@ -135,10 +108,12 @@ permalink: /about/
     word-spacing: normal;
     letter-spacing: normal;
     white-space: pre-line;
+    height: 100%;
+    display: block;
   }
   
-  /* Contact button styling */
-  .contact-button-container {
+  /* Projects button styling */
+  .projects-button-container {
     text-align: center;
     margin-top: var(--spacing-xlarge);
   }

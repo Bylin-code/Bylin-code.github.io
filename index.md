@@ -40,8 +40,14 @@ permalink: /
     
     <!-- Center project (featured with link) -->
     <div class="carousel-item center">
-      <a href="/projects/project3/">
-        <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+3" alt="Project 3" />
+      <a href="/projects/project3/" class="project-link">
+        <div class="project-image-container">
+          <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+3" alt="Project 3" />
+          <div class="project-overlay">
+            <h2>Project 3</h2>
+            <p class="post-date">Featured Project</p>
+          </div>
+        </div>
       </a>
     </div>
     
