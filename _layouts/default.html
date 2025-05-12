@@ -112,9 +112,10 @@
         --about-margin-top: var(--spacing-xxlarge);
         --about-margin-bottom: var(--spacing-xxlarge);
         --about-padding: var(--spacing-large);
-        --about-image-width: 400px;
-        --about-image-height: 500px;
-        --about-text-width: 550px;
+        --about-image-width: clamp(150px, 30vw, 400px);
+        --about-image-height: clamp(200px, 40vw, 500px);
+        --about-text-width: clamp(150px, 30vw, 400px);
+        --about-text-height: clamp(200px, 40vw, 500px);
         --about-gap: var(--spacing-xlarge);
         
         /* Footer */
@@ -918,14 +919,17 @@
             grid-template-columns: auto auto;
             grid-template-rows: auto auto;
             gap: var(--about-gap);
-            margin: var(--about-margin-top) 0 var(--about-margin-bottom);
-            justify-content: center;
+            margin: var(--about-margin-top) auto var(--about-margin-bottom);
+            justify-content: space-between;
+            max-width: var(--site-max-width);
+            width: var(--site-content-width);
           }
           
           .about-image {
             grid-column: 1;
             grid-row: 1;
-            text-align: center;
+            display: flex;
+            justify-content: flex-start;
           }
           
           .about-image img {
@@ -939,22 +943,29 @@
             grid-row: 1;
             display: flex;
             flex-direction: column;
-            height: 100%;
+            height: var(--about-text-height);
             width: var(--about-text-width);
-            padding: var(--about-padding);
           }
-          
+
           .about-text-content {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            font-size: clamp(12px, 2vw, 22px); /* Responsive font size */
           }
-          
+
           .about-text-content p {
             margin: 0;
+            line-height: clamp(1.2, 2vw, 1.7);
+            color: var(--color-dark);
+            font-family: 'Montserrat', Arial, sans-serif;
+            text-align: justify;
+            hyphens: auto;
+            word-spacing: normal;
+            letter-spacing: normal;
           }
-          
+
           .buttons-container {
             grid-column: 1 / span 2;
             grid-row: 2;
@@ -971,11 +982,13 @@
           
           /* Gallery Container */
           .gallery-container {
-            margin: 3rem 0;
+            margin: 3rem auto;
+            max-width: var(--site-max-width);
+            width: var(--site-content-width);
           }
-          
+
           .gallery-image {
-            width: 80%;  /* Changed from 100% to 80% */
+            width: 100%;
             height: auto;
             display: block;
             margin: 0 auto;  /* Center the image if it's not full width */

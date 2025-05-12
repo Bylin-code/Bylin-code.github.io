@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
     textContainer.style.flexDirection = 'column';
     textContainer.style.justifyContent = 'flex-start';
     
-    // 2. Use much larger font size
-    paragraph.style.fontSize = '28px';
+    // Don't override font size - let CSS control it
+    // Only set the margin to ensure proper alignment
     paragraph.style.margin = '0';
     
     // 3. Set initial styles to measure content

@@ -47,15 +47,12 @@ permalink: /
   </div>
   <div class="about-text">
     <div class="about-text-content" id="about-text-content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus</p>
     </div>
   </div>
   <div class="buttons-container">
-    <div class="about-button-container">
+    <div class="about-button-container" style="text-align: center; width: 100%;">
       <a href="/about/" class="button">About</a>
-    </div>
-    <div class="contact-button-container">
-      <a href="/contact/" class="button">Contact</a>
     </div>
   </div>
 </div>
@@ -64,6 +61,10 @@ permalink: /
   <a href="/gallery/">
     <img src="https://placehold.co/1200x500/e2e2e2/333333?text=Gallery" alt="Gallery" class="gallery-image" />
   </a>
+</div>
+
+<div class="contact-button-container" style="text-align: center; margin-top: 2rem;">
+  <a href="/contact/" class="button">Contact</a>
 </div>
 
 <p class="footer-text">Designed with minimalist principles for optimal user experience.</p>
