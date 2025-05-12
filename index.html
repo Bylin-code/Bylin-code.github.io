@@ -24,39 +24,13 @@ layout: default
             <img src="https://placehold.co/420x594/e2e2e2/333333?text={{ post.title | url_encode }}" alt="{{ post.title }}">
           {% endif %}
           
-          <!-- Hard-coded overlay that will definitely show -->
+          <!-- Dynamic overlay that uses the project_code from front matter -->
           <div class="project-code-overlay" style="color: white; font-size: 4rem; font-weight: bold; position: absolute; top: 1.5rem; left: 1.5rem; z-index: 100; text-shadow: 2px 2px 4px black;">
-            {% if post.title contains 'Smart Home' %}
-              <span>S</span>
-              <span>M</span>
-              <span>A</span>
-              <span>R</span>
-              <span>T</span>
-            {% elsif post.title contains 'Audio' %}
-              <span>A</span>
-              <span>U</span>
-              <span>D</span>
-              <span>I</span>
-              <span>O</span>
-            {% elsif post.title contains 'Water' %}
-              <span>W</span>
-              <span>A</span>
-              <span>T</span>
-              <span>E</span>
-              <span>R</span>
-            {% elsif post.title contains 'Health' %}
-              <span>H</span>
-              <span>E</span>
-              <span>A</span>
-              <span>L</span>
-              <span>T</span>
-              <span>H</span>
-            {% elsif post.title contains 'Lighting' %}
-              <span>L</span>
-              <span>I</span>
-              <span>G</span>
-              <span>H</span>
-              <span>T</span>
+            {% if post.project_code %}
+              {% assign code_letters = post.project_code | split: '' %}
+              {% for letter in code_letters %}
+                <span>{{ letter }}</span>
+              {% endfor %}
             {% else %}
               <span>P</span>
               <span>R</span>
