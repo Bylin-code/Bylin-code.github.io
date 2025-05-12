@@ -43,7 +43,9 @@ permalink: /
 
 <div class="about-section">
   <div class="about-image">
-    <img src="https://placehold.co/400x500/e2e2e2/333333?text=Brady+Lin" alt="Brady Lin" id="about-image" />
+    <a href="/about/">
+      <img src="https://placehold.co/400x500/e2e2e2/333333?text=Brady+Lin" alt="Brady Lin" id="about-image" />
+    </a>
   </div>
   <div class="about-text">
     <div class="about-text-content" id="about-text-content">
