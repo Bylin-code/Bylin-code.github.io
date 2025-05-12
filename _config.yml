@@ -31,10 +31,12 @@ github_username:  jekyll
 
 # Build settings
 theme: minima
+
 plugins:
   - jekyll-feed
 collections:
   posts:
+    future: true
     output: true
     permalink: /projects/:title/
 
