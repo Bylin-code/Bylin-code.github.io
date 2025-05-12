@@ -1,70 +1,87 @@
 // Project carousel functionality
 document.addEventListener('DOMContentLoaded', function() {
-  // Function to fetch project data from Jekyll posts
+  // SIGNIFICANTLY IMPROVED VERSION - MORE ROBUST
+  // Function to fetch featured project data with robust error handling
   function getProjectsFromPosts() {
-    // Get all project posts from the page
-    const projectPosts = document.querySelectorAll('[data-project-post]');
-    const projectData = [];
+    console.log('Starting carousel with robust error handling');
     
-    // If we have project posts on the page, use their data
-    if (projectPosts.length > 0) {
-      projectPosts.forEach(post => {
-        projectData.push({
-          id: post.getAttribute('data-project-id'),
-          title: post.getAttribute('data-project-title'),
-          url: post.getAttribute('data-project-url'),
-          image: post.getAttribute('data-project-thumbnail') || post.getAttribute('data-project-image'),
-          code: post.getAttribute('data-project-code')
+    try {
+      // Get all featured project data attributes from the hidden div
+      const projectPosts = document.querySelectorAll('#project-data [data-project-post]');
+      console.log('Found featured projects:', projectPosts.length);
+      
+      // Create an array with only the featured projects
+      const projectData = [];
+      
+      if (projectPosts.length > 0) {
+        projectPosts.forEach((post, index) => {
+          try {
+            const project = {
+              // Use index+1 as ID instead of relying on specific IDs
+              id: index + 1,
+              title: post.getAttribute('data-project-title') || `Project ${index + 1}`,
+              url: post.getAttribute('data-project-url') || '#',
+              image: post.getAttribute('data-project-thumbnail') || 'https://placehold.co/420x594/e2e2e2/333333?text=Featured+Project',
+              code: post.getAttribute('data-project-code') || 'FEAT'
+            };
+            console.log('Adding featured project:', project.title);
+            projectData.push(project);
+          } catch (itemError) {
+            console.error('Error processing project item:', itemError);
+            // Add a placeholder project if we encounter an error
+            projectData.push({
+              id: index + 1,
+              title: `Featured Project ${index + 1}`,
+              url: '#',
+              image: 'https://placehold.co/420x594/e2e2e2/333333?text=Featured+Project',
+              code: 'FEAT'
+            });
+          }
         });
-      });
-      return projectData;
-    }
-    
-    // Fallback to thumbnail paths if no posts are found
-    return [
-      { 
-        id: 1, 
-        title: 'Smart Home Control System', 
-        url: '/projects/project1/',
-        image: '/assets/images/thumbnails/project1-thumbnail.jpg',
-        code: 'SMART'
-      },
-      { 
-        id: 2, 
-        title: 'Portable Audio Interface', 
-        url: '/projects/project2/',
-        image: '/assets/images/thumbnails/project2-thumbnail.jpg',
-        code: 'AUDIO'
-      },
-      { 
-        id: 3, 
-        title: 'Ergonomic Desktop Workstation', 
-        url: '/projects/project3/',
-        image: '/assets/images/thumbnails/project3-thumbnail.jpg',
-        code: 'ERGO'
-      },
-      { 
-        id: 4, 
-        title: 'Modular Lighting System', 
-        url: '/projects/project4/',
-        image: '/assets/images/thumbnails/project4-thumbnail.jpg',
-        code: 'LIGHT'
-      },
-      { 
-        id: 5, 
-        title: 'Sustainable Water Filtration', 
-        url: '/projects/project5/',
-        image: '/assets/images/thumbnails/project5-thumbnail.jpg',
-        code: 'WATER'
-      },
-      { 
-        id: 6, 
-        title: 'Wearable Health Monitor', 
-        url: '/projects/project6/',
-        image: '/assets/images/thumbnails/project6-thumbnail.jpg',
-        code: 'VITAL'
+        
+        // Log the filtered list
+        console.log('Final featured project list:', projectData);
+        return projectData;
       }
-    ];
+      
+      // Fallback with placeholder projects - will work even if specific projects are removed
+      console.log('WARNING: No featured project data found, using placeholders');
+      return [
+        { 
+          id: 1, 
+          title: 'Featured Project 1', 
+          url: '#',
+          image: 'https://placehold.co/420x594/e2e2e2/333333?text=Featured+Project+1',
+          code: 'FEAT1'
+        },
+        { 
+          id: 2, 
+          title: 'Featured Project 2', 
+          url: '#',
+          image: 'https://placehold.co/420x594/e2e2e2/333333?text=Featured+Project+2',
+          code: 'FEAT2'
+        },
+        { 
+          id: 3, 
+          title: 'Featured Project 3', 
+          url: '#',
+          image: 'https://placehold.co/420x594/e2e2e2/333333?text=Featured+Project+3',
+          code: 'FEAT3'
+        }
+      ];
+    } catch (error) {
+      console.error('Error in getProjectsFromPosts:', error);
+      // Ultimate fallback if everything else fails
+      return [
+        { 
+          id: 999, 
+          title: 'Featured Projects', 
+          url: '/projects/',
+          image: 'https://placehold.co/420x594/e2e2e2/333333?text=Featured+Projects',
+          code: 'PROJ'
+        }
+      ];
+    }
   }
   
   // Get project data
@@ -103,6 +120,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
   rightItem.addEventListener('click', function() {
     if (!isAnimating) navigateCarousel('right', true);
+  });
+  
+  // Pause auto-scrolling when hovering over the center image
+  centerItem.addEventListener('mouseenter', function() {
+    stopAutoScroll();
+  });
+  
+  centerItem.addEventListener('mouseleave', function() {
+    startAutoScroll();
   });
   
   // Set up dot navigation

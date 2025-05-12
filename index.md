@@ -32,31 +32,60 @@ permalink: /
     <span>E</span>
     <span>D</span>
   </div>
+  
+  <!-- Hidden project data that will be read by the carousel JavaScript -->
+  <div id="project-data" style="display: none;">
+    {% assign featured_projects = site.posts | where: 'featured', true | sort: 'date' | reverse %}
+    {% for project in featured_projects %}
+      <div data-project-post="true"
+          data-project-id="{{ forloop.index }}"
+          data-project-title="{{ project.title }}"
+          data-project-url="{{ project.url }}"
+          data-project-thumbnail="{{ project.thumbnail }}"
+          data-project-code="{{ project.project_code }}">
+      </div>
+    {% endfor %}
+  </div>
+  
+  <!-- We rebuilt the carousel container and items from scratch -->
+  <!-- Only featured projects will be shown -->
   <div class="carousel-container">
-    <!-- Left project (visible but smaller) -->
-    <div class="carousel-item left">
-      <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+2" alt="Project 2" />
-    </div>
+    {% assign featured_projects = site.posts | where: 'featured', true | sort: 'date' | reverse %}
     
-    <!-- Center project (featured with link) -->
-    <div class="carousel-item center">
-      <a href="/projects/project3/" class="project-link">
+    <!-- LEFT POSITION: Second-most recent featured project -->
+    {% if featured_projects.size > 1 %}
+      {% assign left_project = featured_projects[1] %}
+      <div class="carousel-item left new-carousel-item">
+        <img src="{{ left_project.thumbnail }}" alt="{{ left_project.title }}" />
+      </div>
+    {% endif %}
+    
+    <!-- CENTER POSITION: Most recent featured project -->
+    {% if featured_projects.size > 0 %}
+      {% assign center_project = featured_projects[0] %}
+      <div class="carousel-item center new-carousel-item">
         <div class="project-image-container">
-          <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+3" alt="Project 3" />
+          <a href="{{ center_project.url }}" class="project-link">
+            <img src="{{ center_project.thumbnail }}" alt="{{ center_project.title }}" />
+          </a>
           <div class="project-overlay">
-            <h2>Project 3</h2>
-            <p class="post-date">Featured Project</p>
+            <h2>{{ center_project.title }}</h2>
+            <p class="post-date">{{ center_project.date | date: "%b %d, %Y" }}</p>
           </div>
         </div>
-      </a>
-    </div>
+      </div>
+    {% endif %}
     
-    <!-- Right project (visible but smaller) -->
-    <div class="carousel-item right">
-      <img src="https://placehold.co/420x594/e2e2e2/333333?text=Project+4" alt="Project 4" />
-    </div>
+    <!-- RIGHT POSITION: Third-most recent featured project -->
+    {% if featured_projects.size > 2 %}
+      {% assign right_project = featured_projects[2] %}
+      <div class="carousel-item right new-carousel-item">
+        <img src="{{ right_project.thumbnail }}" alt="{{ right_project.title }}" />
+      </div>
+    {% endif %}
   </div>
-  <div class="vertical-text right-featured">
+
+<div class="vertical-text right-featured">
     <span>F</span>
     <span>E</span>
     <span>A</span>

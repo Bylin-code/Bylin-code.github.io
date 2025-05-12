@@ -882,22 +882,22 @@
       }
       
       .carousel-item.center:hover {
-        /* Keep the same position but increase scale slightly and darken */
+        /* Keep the same position but increase scale slightly, no darken */
         transform: translate(-50%, -50%) scale(var(--carousel-hover-scale));
-        filter: brightness(var(--carousel-hover-brightness));
-        transition: transform var(--carousel-hover-transition) ease-in-out, filter var(--carousel-hover-transition) ease-in-out;
+        /* Removed brightness filter */
+        transition: transform var(--carousel-hover-transition) ease-in-out;
         z-index: 21; /* Above everything */
       }
       
       .carousel-item.right:hover {
-        /* Keep the same position but increase scale slightly and darken */
+        /* Keep the same position but increase scale slightly, no darken */
         transform: translate(-50%, -50%) scale(calc(var(--carousel-side-scale) * var(--carousel-hover-scale)));
-        filter: brightness(var(--carousel-hover-brightness));
-        transition: transform var(--carousel-hover-transition) ease-in-out, filter var(--carousel-hover-transition) ease-in-out;
+        /* Removed brightness filter */
+        transition: transform var(--carousel-hover-transition) ease-in-out;
         z-index: 5; /* Above normal right items but below center */
       }
       
-      /* Project overlay for carousel center item */
+      /* Project overlay for center carousel item only */
       .carousel-item .project-overlay {
         position: absolute;
         bottom: 0;
@@ -909,10 +909,30 @@
         transform: translateY(100%);
         transition: transform 0.3s ease-out;
         z-index: 30;
+        pointer-events: none; /* Ensure it doesn't block hover events */
       }
       
-      .carousel-item:hover .project-overlay {
-        transform: translateY(0);
+      /* Ensure project link covers the entire area */
+      .carousel-item .project-link {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 25;
+      }
+      
+      /* Show project overlay on hover for center carousel item - robust selector */
+      .carousel-item.center:hover .project-overlay,
+      .carousel-item.center .project-image-container:hover .project-overlay,
+      .carousel-item.center .project-link:hover ~ .project-overlay {
+        transform: translateY(0) !important;
+      }
+      .carousel-item.center .project-overlay {
+        pointer-events: none;
+        z-index: 30;
+      }
+      .carousel-item.center .project-image-container {
+        position: relative;
       }
       
       .project-overlay h2 {
@@ -1323,8 +1343,12 @@
             width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;  /* Center the image if it's not full width */
-            transition: transform 0.3s ease;
+            border-radius: var(--border-radius-medium);
+            box-shadow: var(--shadow-medium);
+            transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+          }
+          .gallery-image-wrapper:hover .gallery-image {
+            filter: brightness(0.65);
           }
           
           .gallery-container a:hover .gallery-image {
@@ -1424,6 +1448,70 @@
           {{ content }}
         </main>
         {% include footer.html %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Only run on home page
+          if (window.location.pathname === '/' || window.location.pathname === '') {
+            const welcomeImage = document.querySelector('.welcome-image-wrapper');
+            const welcomeSubtitle = document.querySelector('.welcome-subtitle');
+            let hasHovered = false;
+            let hasAutoShown = false;
+            let autoShowTimeout;
+            
+            // Create a new class for auto-shown subtitle
+            const style = document.createElement('style');
+            style.textContent = `
+              .auto-shown-subtitle {
+                opacity: 1 !important;
+              }
+              .scrolled-past {
+                opacity: 0 !important;
+              }
+              /* Override scrolled-past when hovered */
+              .welcome-image-wrapper:hover .welcome-subtitle.scrolled-past {
+                opacity: 1 !important;
+              }
+            `;
+            document.head.appendChild(style);
+            
+            // Track if user has hovered over the welcome image
+            if (welcomeImage) {
+              welcomeImage.addEventListener('mouseenter', function() {
+                hasHovered = true;
+                if (autoShowTimeout) {
+                  clearTimeout(autoShowTimeout);
+                }
+              });
+            }
+            
+            // Auto-show subtitle after 3 seconds if no hover
+            if (welcomeSubtitle) {
+              autoShowTimeout = setTimeout(function() {
+                if (!hasHovered) {
+                  welcomeSubtitle.classList.add('auto-shown-subtitle');
+                  hasAutoShown = true;
+                }
+              }, 3000); // 3 seconds
+              
+              // Handle subtitle on scroll if it was shown automatically
+              window.addEventListener('scroll', function() {
+                if (welcomeImage && hasAutoShown) {
+                  // Check if we've scrolled past the welcome image
+                  const welcomeRect = welcomeImage.getBoundingClientRect();
+                  if (welcomeRect.bottom < window.innerHeight * 0.5) {
+                    welcomeSubtitle.classList.add('scrolled-past');
+                    welcomeSubtitle.classList.remove('auto-shown-subtitle');
+                  } else {
+                    // When scrolling back up, keep it visible if it was auto-shown
+                    if (hasAutoShown) {
+                      welcomeSubtitle.classList.remove('scrolled-past');
+                    }
+                  }
+                }
+              });
+            }
+          }
+        });
+      </script>
       </body>
-    </html>
 </html>
