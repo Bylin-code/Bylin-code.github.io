@@ -13,56 +13,56 @@ document.addEventListener('DOMContentLoaded', function() {
           id: post.getAttribute('data-project-id'),
           title: post.getAttribute('data-project-title'),
           url: post.getAttribute('data-project-url'),
-          image: post.getAttribute('data-project-image'),
+          image: post.getAttribute('data-project-thumbnail') || post.getAttribute('data-project-image'),
           code: post.getAttribute('data-project-code')
         });
       });
       return projectData;
     }
     
-    // Fallback to placeholder data if no posts are found
+    // Fallback to thumbnail paths if no posts are found
     return [
       { 
         id: 1, 
         title: 'Smart Home Control System', 
         url: '/projects/project1/',
-        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+1',
+        image: '/assets/images/thumbnails/project1-thumbnail.jpg',
         code: 'SMART'
       },
       { 
         id: 2, 
         title: 'Portable Audio Interface', 
         url: '/projects/project2/',
-        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+2',
+        image: '/assets/images/thumbnails/project2-thumbnail.jpg',
         code: 'AUDIO'
       },
       { 
         id: 3, 
         title: 'Ergonomic Desktop Workstation', 
         url: '/projects/project3/',
-        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+3',
+        image: '/assets/images/thumbnails/project3-thumbnail.jpg',
         code: 'ERGO'
       },
       { 
         id: 4, 
         title: 'Modular Lighting System', 
         url: '/projects/project4/',
-        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+4',
+        image: '/assets/images/thumbnails/project4-thumbnail.jpg',
         code: 'LIGHT'
       },
       { 
         id: 5, 
         title: 'Sustainable Water Filtration', 
         url: '/projects/project5/',
-        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+5',
+        image: '/assets/images/thumbnails/project5-thumbnail.jpg',
         code: 'WATER'
       },
       { 
         id: 6, 
         title: 'Wearable Health Monitor', 
         url: '/projects/project6/',
-        image: 'https://placehold.co/420x594/e2e2e2/333333?text=Project+6',
-        code: 'HEALTH'
+        image: '/assets/images/thumbnails/project6-thumbnail.jpg',
+        code: 'VITAL'
       }
     ];
   }

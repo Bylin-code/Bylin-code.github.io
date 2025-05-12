@@ -56,9 +56,9 @@
         --quote-border-color: #e2e2e2;
         
         /* Carousel configuration */
-        --carousel-margin-top: var(--spacing-xxlarge);
-        --carousel-margin-bottom: var(--spacing-xxlarge);
-        --carousel-height: min(660px, 70vh);
+        --carousel-margin-top: clamp(var(--spacing-large), 0vh, var(--spacing-xxlarge));
+        --carousel-margin-bottom: clamp(var(--spacing-large), 0vh, var(--spacing-xxlarge));
+        --carousel-height: min(660px, 70vh, calc(90vw * 1.414)); /* Added width-based constraint, using aspect ratio */
         --carousel-container-padding: var(--spacing-medium);
         
         /* Carousel image sizes (responsive) */
@@ -92,7 +92,7 @@
         --project-code-reveal-duration: 0.4s;  /* Duration of each letter reveal animation */
         
         /* Carousel dots */
-        --carousel-dots-margin: var(--spacing-large);
+        --carousel-dots-margin: clamp(var(--spacing-medium), 2vh, var(--spacing-large));
         --carousel-dot-size: 10px;
         --carousel-dot-spacing: var(--spacing-small);
         --carousel-dot-color: var(--color-light);
@@ -917,12 +917,13 @@
           .about-section {
             display: grid;
             grid-template-columns: auto auto;
-            grid-template-rows: auto auto;
+            grid-template-rows: auto;
             gap: var(--about-gap);
             margin: var(--about-margin-top) auto var(--about-margin-bottom);
             justify-content: space-between;
             max-width: var(--site-max-width);
             width: var(--site-content-width);
+            height: auto; /* Allow height to adjust to content */
           }
           
           .about-image {
@@ -936,6 +937,11 @@
             width: var(--about-image-width);
             height: var(--about-image-height);
             object-fit: cover;
+            transition: transform 0.3s ease;
+          }
+          
+          .about-image a:hover img {
+            transform: scale(1.05);
           }
           
           .about-text {
@@ -943,7 +949,7 @@
             grid-row: 1;
             display: flex;
             flex-direction: column;
-            height: var(--about-text-height);
+            min-height: min-content; /* Allow height to adjust to content */
             width: var(--about-text-width);
           }
 
@@ -992,6 +998,11 @@
             height: auto;
             display: block;
             margin: 0 auto;  /* Center the image if it's not full width */
+            transition: transform 0.3s ease;
+          }
+          
+          .gallery-container a:hover .gallery-image {
+            transform: scale(1.03);
           }
           
           .footer-text {
@@ -1036,6 +1047,21 @@
       </head>
       <body>
         {% include header.html %}
+        
+        <!-- Hidden project data for the carousel -->
+        <div style="display: none;" id="project-data">
+          {% for post in site.posts %}
+            <div data-project-post
+                 data-project-id="{{ forloop.index }}"
+                 data-project-title="{{ post.title }}"
+                 data-project-url="{{ post.url }}"
+                 data-project-thumbnail="{{ post.thumbnail }}"
+                 data-project-image="{{ post.image }}"
+                 data-project-code="{{ post.project_code }}">
+            </div>
+          {% endfor %}
+        </div>
+        
         <main>
           {{ content }}
         </main>
