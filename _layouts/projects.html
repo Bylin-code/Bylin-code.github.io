@@ -31,7 +31,36 @@ layout: default
       </div>
     {% endfor %}
   </div>
+  
+  <!-- Revealing text that appears when scrolling to bottom -->
+  <div class="reveal-on-scroll">
+    <p>made with patience and care</p>
+  </div>
 </section>
+
+<script>
+  // JavaScript to handle revealing the text on scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const revealElement = document.querySelector('.reveal-on-scroll');
+    
+    function checkScroll() {
+      // Calculate when user has scrolled to the bottom area of the page
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const revealPosition = revealElement.offsetTop;
+      
+      // If scrolled to the element (with some buffer), reveal it
+      if (scrollPosition > revealPosition - 100) {
+        revealElement.classList.add('revealed');
+      }
+    }
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', checkScroll);
+    
+    // Check on initial load in case user starts already scrolled down
+    checkScroll();
+  });
+</script>
 
 <style>
   /* Projects Grid Styles */
@@ -156,5 +185,28 @@ layout: default
     .project-code-overlay {
       font-size: calc(var(--font-size-xlarge));
     }
+  }
+  
+  /* Revealing text styles */
+  .reveal-on-scroll {
+    text-align: center;
+    margin-top: var(--spacing-xxlarge);
+    margin-bottom: var(--spacing-xlarge);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  
+  .reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .reveal-on-scroll p {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-style: italic;
+    font-size: var(--font-size-medium);
+    color: #777;
+    letter-spacing: 0.05em;
   }
 </style>

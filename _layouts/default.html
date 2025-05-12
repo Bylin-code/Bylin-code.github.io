@@ -7,7 +7,7 @@
     <title>{{ page.title }} | {{ site.title }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
       /* Global site configuration variables */
       :root {
@@ -74,7 +74,7 @@
         
         /* Carousel animation timing */
         --carousel-transition-time: 0.6s;     /* Duration of all carousel transitions */
-        --carousel-auto-scroll-interval: 5s; /* Time between automatic slides */
+        --carousel-auto-scroll-interval: 6s; /* Time between automatic slides */
         
         /* Carousel scale factors */
         --carousel-side-scale: 0.3;           /* Scale of side images relative to center image */
@@ -180,6 +180,56 @@
         letter-spacing: 0.05em;
         width: 100%;
         text-align: center;
+      }
+      
+      /* Decorative Chinese characters styling */
+      .decorative-characters {
+        display: none; /* Hidden by default on all screens */
+      }
+      
+      /* Only show characters on wider screens */
+      @media (min-width: 1200px) {
+        .decorative-characters {
+          display: block;
+          position: fixed;
+          width: 100%;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          z-index: -1;
+          pointer-events: none;
+        }
+        
+        .character-column {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5vh 0;
+          height: 100%;
+        }
+        
+        .character-column-left {
+          left: 4vw;
+        }
+        
+        .character-column-right {
+          right: 4vw;
+        }
+        
+        .character {
+          font-size: 28rem; /* Massively large fixed font size */
+          font-family: 'Noto Serif SC', serif;
+          color: rgba(50, 50, 50, 0.03); /* Very faint grey */
+          pointer-events: none; /* Don't interfere with clicks */
+          user-select: none; /* Not selectable */
+          line-height: 1;
+          margin: 0;
+          padding: 0;
+        }
       }
       
       /* Media query for smaller screens */
@@ -1295,6 +1345,22 @@
         <script src="/assets/js/text-spacing.js"></script>
       </head>
       <body>
+        <!-- Decorative Chinese characters for wide screens -->
+        <div class="decorative-characters">
+          <!-- Left column -->
+          <div class="character-column character-column-left">
+            <div class="character">林</div>
+            <div class="character">林</div>
+            <div class="character">林</div>
+          </div>
+          
+          <!-- Right column -->
+          <div class="character-column character-column-right">
+            <div class="character">林</div>
+            <div class="character">林</div>
+            <div class="character">林</div>
+          </div>
+        </div>
         {% include header.html %}
         
         <!-- Hidden project data for the carousel -->
