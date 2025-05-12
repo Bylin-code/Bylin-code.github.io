@@ -1062,6 +1062,23 @@
         animation: slideCenterToLeft 0.5s forwards ease-out;
       }
       
+      /* New animation classes for off-screen transitions */
+      .slide-left-to-offscreen {
+        animation: slideLeftToOffscreen 0.5s forwards ease-out;
+      }
+      
+      .slide-right-to-offscreen {
+        animation: slideRightToOffscreen 0.5s forwards ease-out;
+      }
+      
+      .slide-offscreen-to-left {
+        animation: slideOffscreenToLeft 0.5s forwards ease-out;
+      }
+      
+      .slide-offscreen-to-right {
+        animation: slideOffscreenToRight 0.5s forwards ease-out;
+      }
+      
       /* Keyframe animations for carousel movement */
       @keyframes slideLeftToCenter {
         from { 
@@ -1111,6 +1128,67 @@
         to { 
           left: var(--carousel-left-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          z-index: 1;
+        }
+      }
+      
+      /* Off-screen transition keyframes */
+      @keyframes slideLeftToOffscreen {
+        from { 
+          left: var(--carousel-left-position); 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          opacity: 1;
+          z-index: 1;
+        }
+        to { 
+          left: 5%; 
+          transform: translate(-50%, -50%) scale(0); 
+          opacity: 0;
+          z-index: 0;
+        }
+      }
+      
+      @keyframes slideRightToOffscreen {
+        from { 
+          left: var(--carousel-right-position); 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          opacity: 1;
+          z-index: 1;
+        }
+        to { 
+          left: 95%; 
+          transform: translate(-50%, -50%) scale(0); 
+          opacity: 0;
+          z-index: 0;
+        }
+      }
+      
+      @keyframes slideOffscreenToLeft {
+        from { 
+          left: 5%; 
+          transform: translate(-50%, -50%) scale(0); 
+          opacity: 0;
+          z-index: 0;
+        }
+        to { 
+          left: var(--carousel-left-position); 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          opacity: 1;
+          z-index: 1;
+        }
+      }
+      
+      @keyframes slideOffscreenToRight {
+        from { 
+          left: 95%; 
+          transform: translate(-50%, -50%) scale(0); 
+          opacity: 0;
+          z-index: 0;
+        }
+        to { 
+          left: var(--carousel-right-position); 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          opacity: 1;
           z-index: 1;
         }
       }

@@ -135,25 +135,101 @@ document.addEventListener('DOMContentLoaded', function() {
       nextIndex = (currentIndex - 1 + featuredProjects.length) % featuredProjects.length;
     }
     
+    // Calculate the new indices after navigation
+    let newIndices = {
+      center: nextIndex,
+      left: (nextIndex - 1 + featuredProjects.length) % featuredProjects.length,
+      right: (nextIndex + 1) % featuredProjects.length
+    };
+    
     // Update dot indicators
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === nextIndex);
     });
     
+    // Create a new off-screen element if needed
+    let offscreenElement = null;
+    
     // Perform animations based on direction
     if (direction === 'next') {
-      // Right to center, center to left
+      // When clicking right image:
+      // 1. Right item slides to center
+      // 2. Center item slides to left
+      // 3. Left item slides off-screen
+      // 4. New right item slides in from off-screen
+      
+      // Right to center, center to left, left to off-screen
       if (rightItem) rightItem.classList.add('slide-right-to-center');
       if (centerItem) centerItem.classList.add('slide-center-to-left');
+      if (leftItem) leftItem.classList.add('slide-left-to-offscreen');
+      
+      // Create new off-screen right element
+      offscreenElement = document.createElement('div');
+      offscreenElement.className = 'carousel-item offscreen-right';
+      offscreenElement.id = 'offscreen-carousel-item';
+      offscreenElement.style.position = 'absolute';
+      offscreenElement.style.left = '110%';
+      offscreenElement.style.top = '50%';
+      offscreenElement.style.transform = 'translate(-50%, -50%) scale(0)';
+      offscreenElement.style.opacity = '0';
+      offscreenElement.style.zIndex = '0';
+      
+      // Create image container for new element
+      const imageContainer = document.createElement('div');
+      imageContainer.className = 'project-image-container';
+      
+      // Create image
+      const img = document.createElement('img');
+      img.src = featuredProjects[newIndices.right].thumbnail;
+      img.alt = featuredProjects[newIndices.right].title;
+      
+      // Create project code overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'project-code-overlay';
+      
+      // Create vertical project code container
+      const codeContainer = document.createElement('div');
+      codeContainer.className = 'vertical-project-code';
+      
+      // Add project code letters
+      if (featuredProjects[newIndices.right].code) {
+        Array.from(featuredProjects[newIndices.right].code).forEach(char => {
+          const letterDiv = document.createElement('div');
+          letterDiv.textContent = char;
+          letterDiv.style.cssText = 'display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);';
+          codeContainer.appendChild(letterDiv);
+        });
+      }
+      
+      // Assemble everything
+      overlay.appendChild(codeContainer);
+      imageContainer.appendChild(img);
+      imageContainer.appendChild(overlay);
+      offscreenElement.appendChild(imageContainer);
+      
+      // Add to carousel
+      carouselContainer.appendChild(offscreenElement);
+      
+      // Begin animation for the new element after a short delay
+      setTimeout(() => {
+        offscreenElement.classList.add('slide-offscreen-to-right');
+      }, 50);
       
       // After animation completes
       setTimeout(() => {
         // Remove animation classes
         if (rightItem) rightItem.classList.remove('slide-right-to-center');
         if (centerItem) centerItem.classList.remove('slide-center-to-left');
+        if (leftItem) leftItem.classList.remove('slide-left-to-offscreen');
+        if (offscreenElement) offscreenElement.classList.remove('slide-offscreen-to-right');
         
         // Update current index
         currentIndex = nextIndex;
+        
+        // Clean up temporary element
+        if (offscreenElement) {
+          carouselContainer.removeChild(offscreenElement);
+        }
         
         // Update carousel display with new indices
         updateCarouselDisplay(true);
@@ -162,18 +238,84 @@ document.addEventListener('DOMContentLoaded', function() {
         isAnimating = false;
       }, 500); // Match CSS animation duration
     } else {
-      // Left to center, center to right
+      // When clicking left image:
+      // 1. Left item slides to center
+      // 2. Center item slides to right
+      // 3. Right item slides off-screen
+      // 4. New left item slides in from off-screen
+      
+      // Left to center, center to right, right to off-screen
       if (leftItem) leftItem.classList.add('slide-left-to-center');
       if (centerItem) centerItem.classList.add('slide-center-to-right');
+      if (rightItem) rightItem.classList.add('slide-right-to-offscreen');
+      
+      // Create new off-screen left element
+      offscreenElement = document.createElement('div');
+      offscreenElement.className = 'carousel-item offscreen-left';
+      offscreenElement.id = 'offscreen-carousel-item';
+      offscreenElement.style.position = 'absolute';
+      offscreenElement.style.left = '-10%';
+      offscreenElement.style.top = '50%';
+      offscreenElement.style.transform = 'translate(-50%, -50%) scale(0)';
+      offscreenElement.style.opacity = '0';
+      offscreenElement.style.zIndex = '0';
+      
+      // Create image container for new element
+      const imageContainer = document.createElement('div');
+      imageContainer.className = 'project-image-container';
+      
+      // Create image
+      const img = document.createElement('img');
+      img.src = featuredProjects[newIndices.left].thumbnail;
+      img.alt = featuredProjects[newIndices.left].title;
+      
+      // Create project code overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'project-code-overlay';
+      
+      // Create vertical project code container
+      const codeContainer = document.createElement('div');
+      codeContainer.className = 'vertical-project-code';
+      
+      // Add project code letters
+      if (featuredProjects[newIndices.left].code) {
+        Array.from(featuredProjects[newIndices.left].code).forEach(char => {
+          const letterDiv = document.createElement('div');
+          letterDiv.textContent = char;
+          letterDiv.style.cssText = 'display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);';
+          codeContainer.appendChild(letterDiv);
+        });
+      }
+      
+      // Assemble everything
+      overlay.appendChild(codeContainer);
+      imageContainer.appendChild(img);
+      imageContainer.appendChild(overlay);
+      offscreenElement.appendChild(imageContainer);
+      
+      // Add to carousel
+      carouselContainer.appendChild(offscreenElement);
+      
+      // Begin animation for the new element after a short delay
+      setTimeout(() => {
+        offscreenElement.classList.add('slide-offscreen-to-left');
+      }, 50);
       
       // After animation completes
       setTimeout(() => {
         // Remove animation classes
         if (leftItem) leftItem.classList.remove('slide-left-to-center');
         if (centerItem) centerItem.classList.remove('slide-center-to-right');
+        if (rightItem) rightItem.classList.remove('slide-right-to-offscreen');
+        if (offscreenElement) offscreenElement.classList.remove('slide-offscreen-to-left');
         
         // Update current index
         currentIndex = nextIndex;
+        
+        // Clean up temporary element
+        if (offscreenElement) {
+          carouselContainer.removeChild(offscreenElement);
+        }
         
         // Update carousel display with new indices
         updateCarouselDisplay(true);
