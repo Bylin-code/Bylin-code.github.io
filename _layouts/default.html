@@ -742,45 +742,49 @@
         line-height: 1.6;
       }
       
-      /* Project Carousel */
-      .project-carousel {
-        margin: var(--carousel-margin-top) auto var(--carousel-margin-bottom);
-        position: relative;
-        overflow: visible;
-        max-width: var(--site-content-width);
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      
+      /* Vertical text styling for 'FEATURED' text on carousel sides */
       .vertical-text {
-        position: relative;
+        position: absolute;
+        top: 0;
+        bottom: 0;
         display: flex;
         flex-direction: column;
-        height: var(--carousel-height);
         justify-content: space-between;
+        height: var(--carousel-height);
         color: #333;
         font-family: 'Montserrat', Arial, sans-serif;
-        font-weight: 300;
-        font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+        font-weight: 200;
+        font-size: clamp(1.5rem, 2.5vw, 2.2rem);
         text-transform: uppercase;
-        padding: 10px;
+        padding: 2rem 0;
         z-index: 10;
-        width: 5%;
+        width: auto;
+        pointer-events: none;
       }
       
       .vertical-text span {
+        display: block;
         line-height: 1;
         letter-spacing: 0;
+        text-align: center;
       }
       
       .left-featured {
+        left: 2%;
         text-align: center;
       }
       
       .right-featured {
+        right: 2%;
         text-align: center;
+      }
+      
+      /* Project Carousel Container */
+      .project-carousel {
+        position: relative;
+        width: 100%;
+        margin: var(--carousel-margin-top) auto var(--carousel-margin-bottom);
+        height: var(--carousel-height);
       }
       
       /* Project image container and code overlay */
@@ -801,6 +805,41 @@
         align-items: flex-start; /* Align to left edge */
         pointer-events: none; /* Allows clicking through to the image */
         z-index: 100; /* Ensure it's above the image */
+      }
+
+      /* Vertical project code for carousel */
+      /* Vertical project code styling - new CSS grid approach */
+      .vertical-project-code {
+        display: grid !important;
+        grid-auto-flow: row !important;
+        grid-gap: 0.05em !important;
+        height: auto !important;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      
+      /* Clear any inherited horizontal styles */
+      .project-code-overlay span {
+        display: initial;
+        white-space: initial;
+      }
+      
+      /* Force vertical individual character styling */
+      .vertical-project-code span {
+        display: block !important;
+        color: white !important;
+        font-size: var(--project-code-font-size, 3rem) !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.7) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: left !important;
+        font-family: 'Montserrat', Arial, sans-serif !important;
+        position: relative !important;
+        width: auto !important;
+        float: none !important;
       }
       
       .project-code-overlay span {
@@ -1001,206 +1040,78 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       }
       
-      /* Apply transition classes with smoother animations */
+      /* Carousel animations and transitions */
+      .carousel-item {
+        transition: all 0.5s ease-out;
+      }
       
-      /* 1. Sliding left-to-center */
+      /* Animation classes for carousel movement */
       .slide-left-to-center {
-        animation: slideLeftToCenter var(--carousel-transition-time) forwards ease-out;
-        z-index: 5 !important; /* Ensure it rises above other items */
+        animation: slideLeftToCenter 0.5s forwards ease-out;
       }
       
-      /* 2. Sliding center-to-right */
       .slide-center-to-right {
-        animation: slideCenterToRight var(--carousel-transition-time) forwards ease-out;
-        z-index: 5 !important; /* Maintain higher z-index during transition */
+        animation: slideCenterToRight 0.5s forwards ease-out;
       }
       
-      /* 3. Sliding right-to-offscreen */
-      .slide-right-to-offscreen {
-        animation: slideRightToOffscreen var(--carousel-transition-time) forwards ease-out;
-        z-index: 0 !important; /* Stay below other elements */
-      }
-      
-      /* 4. Sliding offscreen-left-to-left */
-      .slide-offscreen-to-left {
-        animation: slideOffscreenToLeft var(--carousel-transition-time) forwards ease-out;
-        z-index: 0 !important; /* Start below and stay below center */
-      }
-      
-      /* 5. Sliding right-to-center */
       .slide-right-to-center {
-        animation: slideRightToCenter var(--carousel-transition-time) forwards ease-out;
-        z-index: 5 !important; /* Ensure it rises above other items */
+        animation: slideRightToCenter 0.5s forwards ease-out;
       }
       
-      /* 6. Sliding center-to-left */
       .slide-center-to-left {
-        animation: slideCenterToLeft var(--carousel-transition-time) forwards ease-out;
-        z-index: 5 !important; /* Maintain higher z-index during transition */
+        animation: slideCenterToLeft 0.5s forwards ease-out;
       }
       
-      /* 7. Sliding left-to-offscreen */
-      .slide-left-to-offscreen {
-        animation: slideLeftToOffscreen var(--carousel-transition-time) forwards ease-out;
-        z-index: 0 !important; /* Stay below other elements */
-      }
-      
-      /* 8. Sliding offscreen-right-to-right */
-      .slide-offscreen-to-right {
-        animation: slideOffscreenToRight var(--carousel-transition-time) forwards ease-out;
-        z-index: 0 !important; /* Start below and stay below center */
-      }
-      
-      /* Detailed keyframe animations with improved transitions */
+      /* Keyframe animations for carousel movement */
       @keyframes slideLeftToCenter {
-        0% { 
+        from { 
           left: var(--carousel-left-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
-          filter: brightness(0.85); 
         }
-        50% { 
-          left: var(--carousel-mid-left-position); 
-          transform: translate(-50%, -50%) scale(var(--carousel-mid-scale)); 
-          z-index: 10;
-          filter: brightness(0.95);
-        }
-        100% { 
+        to { 
           left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
-          filter: brightness(1); 
         }
       }
       
       @keyframes slideCenterToRight {
-        0% { 
+        from { 
           left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
-          filter: brightness(1); 
         }
-        50% { 
-          left: var(--carousel-mid-right-position); 
-          transform: translate(-50%, -50%) scale(var(--carousel-mid-scale)); 
-          z-index: 10;
-          filter: brightness(0.95);
-        }
-        100% { 
+        to { 
           left: var(--carousel-right-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
-          filter: brightness(0.85); 
-        }
-      }
-      
-      @keyframes slideRightToOffscreen {
-        0% { 
-          left: 85%; 
-          transform: translate(-50%, -50%) scale(0.3); 
-          z-index: 1; 
-          opacity: 1;
-          filter: brightness(0.85); 
-        }
-        100% { 
-          left: 105%; 
-          transform: translate(-50%, -50%) scale(0); 
-          z-index: 0; 
-          opacity: 0;
-          filter: brightness(0.7); 
-        }
-      }
-      
-      @keyframes slideOffscreenToLeft {
-        0% { 
-          left: -5%; 
-          transform: translate(-50%, -50%) scale(0); 
-          z-index: 0; 
-          opacity: 0;
-          filter: brightness(0.7); 
-        }
-        100% { 
-          left: 15%; 
-          transform: translate(-50%, -50%) scale(0.3); 
-          z-index: 1; 
-          opacity: 1;
-          filter: brightness(0.85); 
         }
       }
       
       @keyframes slideRightToCenter {
-        0% { 
-          left: 85%; 
-          transform: translate(-50%, -50%) scale(0.3); 
+        from { 
+          left: var(--carousel-right-position); 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
-          filter: brightness(0.85); 
         }
-        50% { 
-          left: 67.5%; 
-          transform: translate(-50%, -50%) scale(0.5); 
-          z-index: 10;
-          filter: brightness(0.95);
-        }
-        100% { 
-          left: 50%; 
+        to { 
+          left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
-          filter: brightness(1); 
         }
       }
       
       @keyframes slideCenterToLeft {
-        0% { 
-          left: 50%; 
+        from { 
+          left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
-          filter: brightness(1); 
         }
-        50% { 
-          left: 32.5%; 
-          transform: translate(-50%, -50%) scale(0.5); 
-          z-index: 10;
-          filter: brightness(0.95);
-        }
-        100% { 
-          left: 15%; 
-          transform: translate(-50%, -50%) scale(0.3); 
+        to { 
+          left: var(--carousel-left-position); 
+          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
-          filter: brightness(0.85); 
-        }
-      }
-      
-      @keyframes slideLeftToOffscreen {
-        0% { 
-          left: 15%; 
-          transform: translate(-50%, -50%) scale(0.3); 
-          z-index: 1; 
-          opacity: 1;
-          filter: brightness(0.85); 
-        }
-        100% { 
-          left: -5%; 
-          transform: translate(-50%, -50%) scale(0); 
-          z-index: 0; 
-          opacity: 0;
-          filter: brightness(0.7); 
-        }
-      }
-      
-      @keyframes slideOffscreenToRight {
-        0% { 
-          left: 105%; 
-          transform: translate(-50%, -50%) scale(0.25); 
-          z-index: 0; 
-          opacity: 0;
-          filter: brightness(0.7); 
-        }
-        100% { 
-          left: 85%; 
-          transform: translate(-50%, -50%) scale(0.8); 
-          z-index: 1; 
-          opacity: 1;
-          filter: brightness(0.85); 
         }
       }
           

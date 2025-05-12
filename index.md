@@ -21,7 +21,9 @@ permalink: /
   </a>
 </div>
 
+<!-- FEATURED PROJECTS CAROUSEL - REBUILT FROM SCRATCH -->
 <div class="project-carousel">
+  <!-- Featured text on left side - properly vertical -->
   <div class="vertical-text left-featured">
     <span>F</span>
     <span>E</span>
@@ -33,11 +35,23 @@ permalink: /
     <span>D</span>
   </div>
   
-  <!-- Hidden project data that will be read by the carousel JavaScript -->
-  <div id="project-data" style="display: none;">
+  <!-- Featured text on right side - properly vertical -->
+  <div class="vertical-text right-featured">
+    <span>F</span>
+    <span>E</span>
+    <span>A</span>
+    <span>T</span>
+    <span>U</span>
+    <span>R</span>
+    <span>E</span>
+    <span>D</span>
+  </div>
+  
+  <!-- Data attribute container for JavaScript -->
+  <div id="featured-projects-data" style="display: none;">
     {% assign featured_projects = site.posts | where: 'featured', true | sort: 'date' | reverse %}
     {% for project in featured_projects %}
-      <div data-project-post="true"
+      <div class="project-data"
           data-project-id="{{ forloop.index }}"
           data-project-title="{{ project.title }}"
           data-project-url="{{ project.url }}"
@@ -47,23 +61,34 @@ permalink: /
     {% endfor %}
   </div>
   
-  <!-- We rebuilt the carousel container and items from scratch -->
-  <!-- Only featured projects will be shown -->
-  <div class="carousel-container">
+  <!-- Carousel container -->
+  <div class="carousel-container" id="featured-carousel">
     {% assign featured_projects = site.posts | where: 'featured', true | sort: 'date' | reverse %}
+    {% assign total_featured = featured_projects.size %}
     
-    <!-- LEFT POSITION: Second-most recent featured project -->
-    {% if featured_projects.size > 1 %}
-      {% assign left_project = featured_projects[1] %}
-      <div class="carousel-item left new-carousel-item">
-        <img src="{{ left_project.thumbnail }}" alt="{{ left_project.title }}" />
+    <!-- Show appropriate placeholder message if no featured projects -->
+    {% if total_featured == 0 %}
+      <div class="no-featured-message" style="text-align: center; padding: 2rem;">
+        <p>No featured projects to display. Set featured: true in project front matter.</p>
       </div>
-    {% endif %}
-    
-    <!-- CENTER POSITION: Most recent featured project -->
-    {% if featured_projects.size > 0 %}
+    {% else %}
+      <!-- LEFT ITEM: Only show if we have at least 2 featured projects -->
+      {% if total_featured > 1 %}
+        {% assign left_project = featured_projects[1] %}
+        <div class="carousel-item left" id="left-carousel-item">
+          <div class="project-image-container">
+            <img src="{{ left_project.thumbnail }}" alt="{{ left_project.title }}" />
+            <div class="project-code-overlay">
+              {% assign left_code_chars = left_project.project_code | split: '' %}
+              <div class="vertical-project-code" style="display:block;">{% for char in left_code_chars %}<div style="display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      
+      <!-- CENTER ITEM: Always show if we have at least 1 featured project -->
       {% assign center_project = featured_projects[0] %}
-      <div class="carousel-item center new-carousel-item">
+      <div class="carousel-item center" id="center-carousel-item">
         <div class="project-image-container">
           <a href="{{ center_project.url }}" class="project-link">
             <img src="{{ center_project.thumbnail }}" alt="{{ center_project.title }}" />
@@ -72,20 +97,44 @@ permalink: /
             <h2>{{ center_project.title }}</h2>
             <p class="post-date">{{ center_project.date | date: "%b %d, %Y" }}</p>
           </div>
+          <div class="project-code-overlay">
+            {% assign center_code_chars = center_project.project_code | split: '' %}
+            <div class="vertical-project-code" style="display:block;">{% for char in center_code_chars %}<div style="display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
+          </div>
         </div>
       </div>
-    {% endif %}
-    
-    <!-- RIGHT POSITION: Third-most recent featured project -->
-    {% if featured_projects.size > 2 %}
-      {% assign right_project = featured_projects[2] %}
-      <div class="carousel-item right new-carousel-item">
-        <img src="{{ right_project.thumbnail }}" alt="{{ right_project.title }}" />
+      
+      <!-- RIGHT ITEM: Only show if we have at least 3 featured projects -->
+      {% if total_featured > 2 %}
+        {% assign right_project = featured_projects[2] %}
+        <div class="carousel-item right" id="right-carousel-item">
+          <div class="project-image-container">
+            <img src="{{ right_project.thumbnail }}" alt="{{ right_project.title }}" />
+            <div class="project-code-overlay">
+              {% assign right_code_chars = right_project.project_code | split: '' %}
+              <div class="vertical-project-code" style="display:block;">{% for char in right_code_chars %}<div style="display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      
+      <!-- Carousel navigation dots - one for each featured project -->
+      <div class="carousel-dots">
+        {% for project in featured_projects %}
+          <div class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+        {% endfor %}
       </div>
+      
+      <!-- Only show navigation arrows if we have multiple featured projects -->
+      {% if total_featured > 1 %}
+        <div class="carousel-nav prev" id="carousel-prev">‹</div>
+        <div class="carousel-nav next" id="carousel-next">›</div>
+      {% endif %}
     {% endif %}
   </div>
-
-<div class="vertical-text right-featured">
+  
+  <!-- Featured text on right side - properly vertical -->
+  <div class="vertical-text right-featured">
     <span>F</span>
     <span>E</span>
     <span>A</span>
