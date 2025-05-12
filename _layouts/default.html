@@ -58,7 +58,7 @@
         /* Carousel configuration */
         --carousel-margin-top: clamp(var(--spacing-large), 0vh, var(--spacing-xxlarge));
         --carousel-margin-bottom: clamp(var(--spacing-large), 0vh, var(--spacing-xxlarge));
-        --carousel-height: min(660px, 70vh, calc(90vw * 1.414)); /* Added width-based constraint, using aspect ratio */
+        --carousel-height: min(700px, 75vh, calc(90vw * 1.414)); /* Added width-based constraint, using aspect ratio */
         --carousel-container-padding: var(--spacing-medium);
         
         /* Carousel image sizes (responsive) */
@@ -1012,7 +1012,23 @@
           }
           
           /* Responsive Adjustments */
-          @media (max-width: 768px) {
+          /* Sticky header styling */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-background);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        z-index: 1000;
+      }
+      
+      /* Add padding to body to prevent content from hiding under fixed header */
+      body {
+        padding-top: 80px; /* Adjust this value based on your header height */
+      }
+      
+      @media (max-width: 768px) {
             nav {
               padding: 1rem;
               gap: 1.5rem;
