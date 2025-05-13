@@ -19,8 +19,11 @@ permalink: /about/
       <span>U</span>
       <span>T</span>
       <span>&nbsp;</span>
-      <span>M</span>
-      <span>E</span>
+      <span>B</span>
+      <span>R</span>
+      <span>A</span>
+      <span>D</span>
+      <span>Y</span>
     </div>
     
     <!-- Bio paragraph -->
@@ -35,8 +38,11 @@ permalink: /about/
       <span>U</span>
       <span>T</span>
       <span>&nbsp;</span>
-      <span>M</span>
-      <span>E</span>
+      <span>B</span>
+      <span>R</span>
+      <span>A</span>
+      <span>D</span>
+      <span>Y</span>
     </div>
   </div>
   
@@ -76,7 +82,7 @@ permalink: /about/
     justify-content: space-between;
     margin-bottom: var(--spacing-xlarge);
     position: relative;
-    min-height: 500px;
+    min-height: 1009px;
   }
   
   /* Override vertical text styling for about page */
@@ -121,6 +127,7 @@ permalink: /about/
     font-weight: 300; /* Thinner font weight */
     line-height: 3.5;
     margin: 0;
+    margin-top: 7.5px;
     color: var(--color-dark);
     text-align: justify;
     hyphens: auto;
