@@ -7,7 +7,7 @@ permalink: /about/
 <section class="about-page">
   <!-- Large header image -->
   <div class="about-image-container">
-    <img src="/assets/images/webpage/about-main.jpg" alt="Brady Lin" class="about-main-image">
+    <img src="/assets/global-assets/about-main.jpg" alt="Brady Lin" class="about-main-image">
   </div>
   
   <div class="about-content">

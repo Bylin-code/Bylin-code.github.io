@@ -7,7 +7,7 @@ permalink: /
 <div class="welcome-image-container">
   <a href="/">
     <div class="welcome-image-wrapper">
-      <img src="assets/images/webpage/home-welcome.jpg" alt="Welcome" class="gallery-image" />
+      <img src="assets/global-assets/home-welcome.jpg" alt="Welcome" class="gallery-image" />
       <div class="welcome-overlay"></div>
       <div class="welcome-text">
         <span>H</span>
@@ -118,11 +118,7 @@ permalink: /
         </div>
       {% endif %}
       
-      <!-- Only show navigation arrows if we have multiple featured projects -->
-      {% if total_featured > 1 %}
-        <div class="carousel-nav prev" id="carousel-prev">‹</div>
-        <div class="carousel-nav next" id="carousel-next">›</div>
-      {% endif %}
+      <!-- Navigation arrows have been removed as requested -->
     {% endif %}
   </div>
   
@@ -158,7 +154,7 @@ permalink: /
 <div class="about-section">
   <div class="about-image">
     <a href="/about/">
-      <img src="assets/images/webpage/home-about.jpg" alt="Brady Lin" id="about-image" />
+      <img src="assets/global-assets/home-about.jpg" alt="Brady Lin" id="about-image" />
     </a>
   </div>
   <div class="about-text">
@@ -178,7 +174,7 @@ permalink: /
 <div class="gallery-container">
   <a href="/gallery/">
     <div class="gallery-image-wrapper">
-      <img src="assets/images/webpage/home-gallery.jpg" alt="Gallery" class="gallery-image" />
+      <img src="assets/global-assets/home-gallery.jpg" alt="Gallery" class="gallery-image" />
       <div class="gallery-overlay"></div>
       <div class="gallery-quote">
         <p>"Design is not just what it looks like and feels like.<br>Design is how it works."</p>
