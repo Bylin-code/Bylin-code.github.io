@@ -78,7 +78,23 @@ permalink: /about/
     min-height: 500px;
   }
   
-  /* Using global vertical text styling from default.html */
+  /* Override vertical text styling for about page */
+  .about-content .vertical-text {
+    position: relative;
+    height: auto;
+    width: 70px; /* Fixed width to prevent overlap */
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  .about-content .left-featured {
+    left: 0;
+    margin-right: 20px;
+  }
+  
+  .about-content .right-featured {
+    right: 0;
+    margin-left: 20px;
+  }
   
   /* Define necessary variables */
   :root {
@@ -88,7 +104,8 @@ permalink: /about/
   /* Bio paragraph styling */
   .about-bio {
     flex: 1;
-    width: clamp(280px, 70%, 800px);
+    width: auto; /* Let it size based on available space */
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 var(--spacing-large);
     display: flex;
