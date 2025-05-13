@@ -57,6 +57,7 @@ permalink: /about/
   /* Header image styling */
   .about-image-container {
     width: 100%;
+    margin-top: var(--spacing-xlarge); /* Added top padding */
     margin-bottom: var(--spacing-xlarge);
     overflow: hidden;
   }
