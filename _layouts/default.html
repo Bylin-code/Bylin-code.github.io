@@ -74,7 +74,7 @@
         
         /* Carousel animation timing */
         --carousel-transition-time: 0.55s;     /* Duration of all carousel transitions */
-        --carousel-auto-scroll-interval: 5.5s; /* Time between automatic slides */
+        --carousel-auto-scroll-interval: 4.5s; /* Time between automatic slides */
         
         /* Carousel scale factors */
         --carousel-side-scale: 0.3;           /* Scale of side images relative to center image */
@@ -1085,11 +1085,13 @@
           left: var(--carousel-left-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
+          filter: brightness(0.85);
         }
         to { 
           left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
+          filter: brightness(1);
         }
       }
       
@@ -1098,11 +1100,13 @@
           left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
+          filter: brightness(1);
         }
         to { 
           left: var(--carousel-right-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
+          filter: brightness(0.85);
         }
       }
       
@@ -1111,11 +1115,13 @@
           left: var(--carousel-right-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
+          filter: brightness(0.85);
         }
         to { 
           left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
+          filter: brightness(1);
         }
       }
       
@@ -1124,11 +1130,13 @@
           left: var(--carousel-center-position); 
           transform: translate(-50%, -50%) scale(1); 
           z-index: 20;
+          filter: brightness(1);
         }
         to { 
           left: var(--carousel-left-position); 
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           z-index: 1;
+          filter: brightness(0.85);
         }
       }
       
@@ -1175,6 +1183,7 @@
           transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
           opacity: 1;
           z-index: 1;
+          filter: brightness(0.85); /* Match side image darkness */
         }
       }
       
@@ -1187,9 +1196,10 @@
         }
         to { 
           left: var(--carousel-right-position); 
-          transform: translate(-50%, -50%) scale(var(--carousel-side-scale)); 
+          transform: translate(-50%, -50%) scale(0.9);  /* 0.9 is 3 * the side scale (0.3) */
           opacity: 1;
           z-index: 1;
+          filter: brightness(0.85); /* Match side image darkness */
         }
       }
           
@@ -1206,7 +1216,7 @@
             margin: var(--carousel-dots-margin) auto;
             width: 100%;
             position: absolute;
-            bottom: -55px;
+            bottom: -75px;
             left: 0;
             right: 0;
             z-index: 20;
@@ -1227,7 +1237,8 @@
           /* Projects Button */
           .projects-button-container {
             text-align: center;
-            margin: calc(var(--button-margin-top) + 2rem) 0 var(--button-margin-bottom);
+            margin: calc(var(--button-margin-top) + 2.5rem) 0 var(--button-margin-bottom);
+            padding-top: 1rem;
           }
           
           .button {
