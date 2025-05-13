@@ -117,6 +117,7 @@ permalink: /about/
   .about-bio p {
     font-family: 'Montserrat', Arial, sans-serif;
     font-size: clamp(16px, 2.5vw, 26px);
+    font-weight: 300; /* Thinner font weight */
     line-height: 3.5;
     margin: 0;
     color: var(--color-dark);

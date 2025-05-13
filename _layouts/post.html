@@ -1,11 +1,226 @@
-<!-- _layouts/post.html -->
 ---
 layout: default
 ---
-<article class="post">
-  <h1>{{ page.title }}</h1>
-  <p class="post-meta">{{ page.date | date: "%b %d, %Y" }}</p>
-  <div class="post-content">
+<div class="project-container">
+  <!-- Project header with vertical project code -->
+  <header class="project-header">
+    <!-- Left vertical project code -->
+    <div class="vertical-text left-featured">
+      {% assign code_chars = page.project_code | split: '' %}
+      {% for char in code_chars %}
+        <span>{{ char }}</span>
+      {% endfor %}
+    </div>
+    
+    <!-- Project title and date -->
+    <div class="project-title-container">
+      <h1 class="project-title">{{ page.title }}</h1>
+      <div class="project-date">{{ page.date | date: "%b %d, %Y" }}</div>
+    </div>
+    
+    <!-- Right vertical project code -->
+    <div class="vertical-text right-featured">
+      {% assign code_chars = page.project_code | split: '' %}
+      {% for char in code_chars %}
+        <span>{{ char }}</span>
+      {% endfor %}
+    </div>
+  </header>
+  
+  <!-- Main project content -->
+  <main class="project-content">
     {{ content }}
+  </main>
+  
+  <!-- Back button -->
+  <div class="project-navigation">
+    <a href="/projects/" class="btn-back">← All Projects</a>
   </div>
-</article>
+</div>
+
+<style>
+  /* Force override any lines, borders or horizontal separators */
+  .project-container *,
+  .project-header *,
+  .project-title-container * {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .project-header::after,
+  .project-header::before,
+  .project-title-container::after,
+  .project-title-container::before,
+  .project-title::after,
+  .project-title::before,
+  .project-date::after,
+  .project-date::before {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    background: transparent !important;
+  }
+  
+  /* Base project container */
+  .project-container {
+    max-width: var(--site-content-width, 1000px);
+    margin: 0 auto;
+    padding: var(--spacing-large, 24px) var(--spacing-medium, 16px);
+    background-color: transparent;
+    color: var(--color-text, #333);
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Project header styling */
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xlarge, 32px);
+    border-bottom: none;
+    padding-bottom: var(--spacing-large, 24px);
+    position: relative;
+    background-color: transparent;
+  }
+  
+  /* Project title container */
+  .project-title-container {
+    flex: 1;
+    text-align: center;
+    padding: var(--spacing-medium, 16px) var(--spacing-large, 24px);
+    background-color: transparent;
+  }
+  
+  /* Project title */
+  .project-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 500;
+    margin: 0 0 var(--spacing-small, 8px);
+    color: var(--color-dark, #333);
+    letter-spacing: var(--letter-spacing, 0.03em);
+  }
+  
+  /* Project date */
+  .project-date {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-weight: 300;
+    color: var(--color-medium, #999);
+    margin-top: var(--spacing-small, 8px);
+    border-bottom: none;
+  }
+  
+  /* Vertical text styling */
+  .vertical-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--spacing-medium, 16px) 0;
+    width: 40px;
+  }
+  
+  .vertical-text span {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 5px;
+    color: var(--color-dark, #333);
+  }
+  
+  /* Left and right featured text positioning */
+  .left-featured {
+    margin-right: var(--spacing-medium, 16px);
+  }
+  
+  .right-featured {
+    margin-left: var(--spacing-medium, 16px);
+  }
+  
+  /* Project content styling */
+  .project-content {
+    margin: 0 auto;
+    max-width: 800px;
+    line-height: 1.6;
+    background-color: transparent;
+  }
+  
+  /* Style for paragraphs */
+  .project-content p {
+    margin-bottom: var(--spacing-large, 24px);
+    font-weight: 300;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.8;
+    color: var(--color-text, #333);
+  }
+  
+  /* Style for images */
+  .project-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: var(--spacing-large, 24px) auto;
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Navigation buttons */
+  .project-navigation {
+    margin-top: var(--spacing-xlarge, 32px);
+    padding-top: var(--spacing-large, 24px);
+    border-top: none;
+    text-align: center;
+    background-color: transparent;
+  }
+  
+  .btn-back {
+    display: inline-block;
+    padding: var(--spacing-small, 8px) var(--spacing-medium, 16px);
+    border: 1px solid var(--color-dark, #333);
+    color: var(--color-dark, #333);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-back:hover {
+    background-color: transparent;
+    color: var(--color-medium, #999);
+    border-color: var(--color-medium, #999);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .project-header {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .vertical-text {
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      padding: var(--spacing-medium, 16px) 0;
+    }
+    
+    .vertical-text span {
+      margin: 0 3px;
+    }
+    
+    .left-featured {
+      order: 1;
+      margin-right: 0;
+      margin-bottom: var(--spacing-small, 8px);
+    }
+    
+    .project-title-container {
+      order: 2;
+      padding: var(--spacing-small, 8px) 0;
+    }
+    
+    .right-featured {
+      display: none;
+    }
+  }
+</style>
