@@ -56,7 +56,8 @@ permalink: /
           data-project-title="{{ project.title }}"
           data-project-url="{{ project.url }}"
           data-project-thumbnail="{{ project.thumbnail }}"
-          data-project-code="{{ project.project_code }}">
+          data-project-code="{{ project.project_code }}"
+          data-project-date="{{ project.date }}">
       </div>
     {% endfor %}
   </div>
@@ -95,7 +96,6 @@ permalink: /
           </a>
           <div class="project-overlay">
             <h2>{{ center_project.title }}</h2>
-            <p class="post-date">{{ center_project.date | date: "%b %d, %Y" }}</p>
           </div>
           <div class="project-code-overlay">
             {% assign center_code_chars = center_project.project_code | split: '' %}

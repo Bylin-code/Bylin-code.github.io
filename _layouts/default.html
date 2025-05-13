@@ -85,7 +85,7 @@
         
         /* Carousel navigation dots */
         --carousel-dot-size: 10px;           /* Size of navigation dots */
-        --carousel-dot-spacing: 60px;        /* Spacing between dots */
+        --carousel-dot-spacing: clamp(30px, 5vw, 60px);  /* Responsive spacing between dots based on viewport width */
         --carousel-dot-color: #aaaaaa;       /* Color of inactive dots */
         --carousel-dot-active-color: #333333; /* Color of active dot */
         --carousel-dot-transition: 0.3s;      /* Transition time for dot color change */

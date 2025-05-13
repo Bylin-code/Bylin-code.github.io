@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
       url: element.getAttribute('data-project-url'),
       thumbnail: element.getAttribute('data-project-thumbnail'),
       code: element.getAttribute('data-project-code'),
+      date: element.getAttribute('data-project-date'),
       index: index
     });
   });
