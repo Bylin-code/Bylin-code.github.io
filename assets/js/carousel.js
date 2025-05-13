@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const leftItem = document.getElementById('left-carousel-item');
   const centerItem = document.getElementById('center-carousel-item');
   const rightItem = document.getElementById('right-carousel-item');
-  const dots = document.querySelectorAll('.carousel-dots .dot');
+
   
   // Set up click handlers for carousel navigation
   if (leftItem) {
@@ -142,10 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
       right: (nextIndex + 1) % featuredProjects.length
     };
     
-    // Update dot indicators
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === nextIndex);
-    });
+
     
     // Create a new off-screen element if needed
     let offscreenElement = null;
