@@ -59,10 +59,23 @@ function displayRandomQuote() {
     const quoteText = document.createElement('p');
     quoteText.classList.add('quote-text');
     quoteText.textContent = `"${randomQuote.text}"`;
+    quoteText.style.fontFamily = "'Montserrat', Arial, sans-serif";
+    quoteText.style.color = "white";
+    quoteText.style.fontSize = "clamp(1.2rem, 3vw, 2rem)";
+    quoteText.style.lineHeight = "1.4";
+    quoteText.style.marginBottom = "1rem";
+    quoteText.style.fontWeight = "300";
+    quoteText.style.letterSpacing = "0.05em";
     
     const quoteAuthor = document.createElement('p');
     quoteAuthor.classList.add('quote-author');
     quoteAuthor.textContent = `— ${randomQuote.author}`;
+    quoteAuthor.style.fontFamily = "'Montserrat', Arial, sans-serif";
+    quoteAuthor.style.color = "white";
+    quoteAuthor.style.fontSize = "clamp(1rem, 2vw, 1.2rem)";
+    quoteAuthor.style.opacity = "0.8";
+    quoteAuthor.style.textAlign = "right";
+    quoteAuthor.style.fontStyle = "italic";
     
     // Clear any existing content and add the new quote
     quoteContainer.innerHTML = '';

@@ -81,7 +81,7 @@ permalink: /
             <img src="{{ left_project.thumbnail }}" alt="{{ left_project.title }}" />
             <div class="project-code-overlay">
               {% assign left_code_chars = left_project.project_code | split: '' %}
-              <div class="vertical-project-code" style="display:block;">{% for char in left_code_chars %}<div style="display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
+              <div class="vertical-project-code" style="display:block;">{% for char in left_code_chars %}<div style="display:block; color:white; font-size:clamp(2rem, calc(var(--carousel-image-width) / 7), 5rem); font-weight:700; margin:0 0 0.1em 0; line-height:0.9; text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@ permalink: /
           </div>
           <div class="project-code-overlay">
             {% assign center_code_chars = center_project.project_code | split: '' %}
-            <div class="vertical-project-code" style="display:block;">{% for char in center_code_chars %}<div style="display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
+            <div class="vertical-project-code" style="display:block;">{% for char in center_code_chars %}<div style="display:block; color:white; font-size:clamp(2.5rem, calc(var(--carousel-image-width) / 6), 6rem); font-weight:700; margin:0 0 0.1em 0; line-height:0.9; text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ permalink: /
             <img src="{{ right_project.thumbnail }}" alt="{{ right_project.title }}" />
             <div class="project-code-overlay">
               {% assign right_code_chars = right_project.project_code | split: '' %}
-              <div class="vertical-project-code" style="display:block;">{% for char in right_code_chars %}<div style="display:block;margin:0 0 0.1em 0;color:white;font-size:3rem;font-weight:700;text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
+              <div class="vertical-project-code" style="display:block;">{% for char in right_code_chars %}<div style="display:block; color:white; font-size:clamp(2rem, calc(var(--carousel-image-width) / 7), 5rem); font-weight:700; margin:0 0 0.1em 0; line-height:0.9; text-shadow:2px 2px 8px rgba(0,0,0,0.7);">{{ char }}</div>{% endfor %}</div>
             </div>
           </div>
         </div>
@@ -176,9 +176,8 @@ permalink: /
     <div class="gallery-image-wrapper">
       <img src="assets/global-assets/home-gallery.jpg" alt="Gallery" class="gallery-image" />
       <div class="gallery-overlay"></div>
-      <div class="gallery-quote">
-        <p>"Design is not just what it looks like and feels like.<br>Design is how it works."</p>
-        <p class="quote-author">— Steve Jobs</p>
+      <div class="gallery-quote quote-container">
+        <!-- Quote will be populated by quotes.js -->
       </div>
     </div>
   </a>
