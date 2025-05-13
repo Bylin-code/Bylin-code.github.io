@@ -9,13 +9,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
-      /* Global site configuration variables */
+      /* Root custom properties for site-wide variables */
       :root {
+        /* Mobile-first approach - set base values for mobile */
+        --mobile-nav-height: 60px;
+        --mobile-padding: 1rem;
+        --mobile-font-size-base: 15px;
+        
         /* Base spacing units */
         --spacing-unit: 8px;
-        --spacing-small: calc(var(--spacing-unit) * 1);    /* 8px */
-        --spacing-medium: calc(var(--spacing-unit) * 2);   /* 16px */
-        --spacing-large: calc(var(--spacing-unit) * 3);    /* 24px */
+        --spacing-xxsmall: calc(var(--spacing-unit) * 0.5); /* 4px */
+        --spacing-xsmall: var(--spacing-unit);              /* 8px */
+        --spacing-small: calc(var(--spacing-unit) * 1.5);   /* 12px */
+        --spacing-medium: calc(var(--spacing-unit) * 2);    /* 16px */
+        --spacing-large: calc(var(--spacing-unit) * 3);     /* 24px */
         --spacing-xlarge: calc(var(--spacing-unit) * 4);   /* 32px */
         --spacing-xxlarge: calc(var(--spacing-unit) * 6);  /* 48px */
         
@@ -71,6 +78,11 @@
         --carousel-right-position: 85%;
         --carousel-mid-left-position: 32.5%;
         --carousel-mid-right-position: 67.5%;
+        
+        /* Mobile carousel positions - will be overridden in media queries */
+        --mobile-carousel-left-position: 15%;
+        --mobile-carousel-center-position: 50%;
+        --mobile-carousel-right-position: 85%;
         
         /* Carousel animation timing */
         --carousel-transition-time: 0.55s;     /* Duration of all carousel transitions */
@@ -866,22 +878,143 @@
       
       /* Project code styling removed to prevent interference with inline styles */
       /* Media queries for responsive font sizing */
+      /* Enhanced mobile experience */
       @media (max-width: 768px) {
+        /* Transformed elements for mobile display */
+        /* Keep project code visible */
+        .project-code-overlay {
+          display: block; /* Keep vertical project code visible on mobile */
+        }
+        
+        /* Hide original vertical featured text */
+        .vertical-text.left-featured,
+        .vertical-text.right-featured {
+          display: none !important;
+        }
+        
+        /* Create a horizontal FEATURED heading before the carousel */
+        #featured-carousel::before {
+          content: 'FEATURED';
+          display: block;
+          text-align: center;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 400; /* Thinner font weight */
+          font-size: 1.5rem;
+          letter-spacing: 0.1em;
+          color: var(--color-dark);
+          margin-bottom: var(--spacing-small); /* Adjusted spacing */
+          /* Removed underline and padding */
+          text-transform: uppercase;
+        }
+        
         :root {
+          /* Adjust carousel dimensions for tablets */
+          --carousel-image-width: min(300px, 80vw);  /* Wider relative to viewport on mobile */
+          --carousel-image-height: min(450px, 120vw); /* Maintain aspect ratio */
+          
+          /* Adjust carousel positions for better mobile experience */
+          --carousel-left-position: 10%;       /* Move side items closer to edge */
+          --carousel-right-position: 90%;
+          --carousel-side-scale: 0.25;       /* Make side items smaller on mobile */
           --project-code-letter-spacing: calc(var(--carousel-image-width) / 40);
+          
+          /* Adjust spacing for more compact mobile layout */
+          --site-padding: var(--spacing-medium);
+        }
+        
+        /* Improve mobile navigation */
+        .site-header {
+          padding: var(--spacing-small);
+        }
+        
+        /* More readable text on mobile */
+        body {
+          font-size: var(--mobile-font-size-base);
+        }
+        
+        /* Enhance mobile gallery experience */
+        .gallery-section {
+          padding: var(--spacing-medium);
+        }
+        
+        /* Better spacing for project grid on tablets */
+        .projects-grid {
+          grid-gap: var(--spacing-medium);
         }
       }
       
+      /* Small mobile enhancements */
       @media (max-width: 480px) {
+        /* Adjust FEATURED heading size for very small screens */
+        #featured-carousel::before {
+          font-size: 1.2rem;
+          margin-bottom: var(--spacing-small);
+          letter-spacing: 0.15em;
+        }
+        
+        /* Only hide the featured text, keep project code visible */
+        [class*='-featured'] { /* Target any element with class containing '-featured' */
+          display: none !important;
+        }
+        
+        /* Ensure project code is visible and styled appropriately */
+        .vertical-project-code,
+        .project-code-letter {
+          display: block;
+        }
+        
+        /* Add more breathing space where vertical text was */
+        .project-image-container {
+          padding: var(--spacing-small);
+        }
+        
         :root {
+          /* Further adjust carousel dimensions for phones */
+          --carousel-image-width: min(280px, 90vw);  /* Almost full width on small devices */
+          --carousel-image-height: min(420px, 135vw); /* Maintain aspect ratio */
           --project-code-font-size: calc(var(--carousel-image-width) / 9);
           --project-code-letter-spacing: calc(var(--carousel-image-width) / 45);
+          
+          /* Tighter spacing on small screens */
+          --site-padding: var(--spacing-small);
         }
+        
+        /* Adjust font sizes for readability on small screens */
+        body {
+          font-size: 14px; /* Slightly smaller base font */
+        }
+        
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.2rem; }
+        
+        /* Improve vertical project code sizing */
         .project-code-letter {
-          font-size: clamp(1.5rem, calc(var(--carousel-image-width) / 9), 3rem);
+          font-size: clamp(1.2rem, calc(var(--carousel-image-width) / 10), 2.5rem);
         }
+        
         .carousel-item.center .project-code-letter {
-          font-size: clamp(1.75rem, calc(var(--carousel-image-width) / 8), 3.5rem);
+          font-size: clamp(1.4rem, calc(var(--carousel-image-width) / 9), 3rem);
+        }
+        
+        /* Single column layout for all content */
+        .projects-grid,
+        .gallery-grid {
+          grid-template-columns: 1fr;
+          gap: var(--spacing-medium);
+        }
+        
+        /* Full-width buttons for better touch targets */
+        .button {
+          width: 100%;
+          text-align: center;
+          padding: var(--spacing-medium);
+          margin-bottom: var(--spacing-small);
+        }
+        
+        /* Better spacing in footer */
+        footer {
+          padding: var(--spacing-medium) var(--spacing-small);
         }
       }
       
