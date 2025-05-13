@@ -447,4 +447,57 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize dot navigation
   setupDotNavigation();
+  
+  // Auto-scrolling functionality
+  let autoScrollTimer; // Timer for auto-scrolling
+  let isHovering = false; // Track if user is hovering over carousel
+  
+  // Function to start auto-scroll timer
+  function startAutoScroll() {
+    // Clear any existing timer first
+    if (autoScrollTimer) {
+      clearInterval(autoScrollTimer);
+    }
+    
+    // Get the auto-scroll interval from CSS variables (default to 4.5s if not found)
+    const root = document.documentElement;
+    const intervalStr = getComputedStyle(root).getPropertyValue('--carousel-auto-scroll-interval').trim();
+    const interval = intervalStr ? parseFloat(intervalStr) * 1000 : 4500;
+    
+    // Set new timer
+    autoScrollTimer = setInterval(() => {
+      // Only auto-scroll if not animating and not being hovered
+      if (!isAnimating && !isHovering && featuredProjects.length > 1) {
+        navigateCarousel('next');
+      }
+    }, interval);
+    
+    console.log(`Auto-scroll started with interval: ${interval}ms`);
+  }
+  
+  // Add hover detection to pause auto-scrolling
+  if (carouselContainer) {
+    carouselContainer.addEventListener('mouseenter', () => {
+      isHovering = true;
+      console.log('Carousel hover: pausing auto-scroll');
+    });
+    
+    carouselContainer.addEventListener('mouseleave', () => {
+      isHovering = false;
+      console.log('Carousel hover ended: resuming auto-scroll');
+    });
+  }
+  
+  // Modify navigateCarousel to reset the timer when user manually navigates
+  const originalNavigateCarousel = navigateCarousel;
+  navigateCarousel = function(direction) {
+    // Call the original function
+    originalNavigateCarousel(direction);
+    
+    // Reset the auto-scroll timer
+    startAutoScroll();
+  };
+  
+  // Start auto-scrolling initially
+  startAutoScroll();
 });
