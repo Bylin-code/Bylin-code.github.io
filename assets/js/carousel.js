@@ -447,4 +447,64 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize dot navigation
   setupDotNavigation();
+  
+  // Auto-scroll functionality
+  let autoScrollTimer;
+  let isUserInteracting = false;
+  
+  // Function to start auto-scrolling
+  function startAutoScroll() {
+    // Clear any existing timer
+    if (autoScrollTimer) {
+      clearInterval(autoScrollTimer);
+    }
+    
+    // Set up a new timer that scrolls every 4.5 seconds
+    autoScrollTimer = setInterval(() => {
+      // Only auto-scroll if user isn't currently interacting
+      if (!isUserInteracting && featuredProjects.length > 1) {
+        navigateCarousel('next');
+      }
+    }, 4500); // 4.5 seconds
+  }
+  
+  // Reset auto-scroll when user interacts with carousel
+  function resetAutoScroll() {
+    isUserInteracting = true;
+    
+    // Clear existing timeout if any
+    if (window.resetScrollTimeout) {
+      clearTimeout(window.resetScrollTimeout);
+    }
+    
+    // Reset the flag after a delay
+    window.resetScrollTimeout = setTimeout(() => {
+      isUserInteracting = false;
+    }, 5000);
+    
+    // Restart auto-scroll
+    startAutoScroll();
+  }
+  
+  // Add event listeners to pause auto-scroll on user interaction
+  carouselContainer.addEventListener('mouseenter', () => {
+    isUserInteracting = true;
+  });
+  
+  carouselContainer.addEventListener('mouseleave', () => {
+    isUserInteracting = false;
+    resetAutoScroll();
+  });
+  
+  // Add event listeners to navigation elements
+  if (leftItem) leftItem.addEventListener('click', resetAutoScroll);
+  if (rightItem) rightItem.addEventListener('click', resetAutoScroll);
+  
+  // Also reset auto-scroll when dots are clicked
+  document.querySelectorAll('.carousel-dots .dot').forEach(dot => {
+    dot.addEventListener('click', resetAutoScroll);
+  });
+  
+  // Start auto-scrolling
+  startAutoScroll();
 });
