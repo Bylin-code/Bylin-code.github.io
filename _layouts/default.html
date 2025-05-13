@@ -311,13 +311,22 @@
       }
 
       /* Minimalist Navigation Bar */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: #f1f1f1;
+        border-bottom: 1px solid #eaeaea;
+      }
+      
       nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 1.5rem 3rem;
         background: #f1f1f1;
-        border-bottom: 1px solid #eaeaea;
         font-size: 0.9rem;
         letter-spacing: 0.05em;
         position: fixed;
@@ -333,6 +342,12 @@
         display: flex;
         align-items: center;
         gap: 3rem;
+      }
+      
+      /* Desktop navigation styles */
+      .desktop-nav {
+        display: flex;
+        align-items: center;
       }
       
       .site-name {
@@ -353,27 +368,11 @@
         font-weight: 500;
         padding: 0.5em;
         position: relative;
+        background-color: transparent;
         transition: color 0.3s;
       }
 
-      nav a:before {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background-color: #555;
-        transition: width 0.3s ease;
-      }
-
-      nav a:hover, nav a:focus {
-        color: #000;
-      }
-
-      nav a:hover:before, nav a:focus:before {
-        width: 100%;
-      }
+      /* Removed all hover effects for clean, minimal navigation */
 
       /* Minimal Footer */
       footer {
@@ -1552,7 +1551,85 @@
       
       /* Add padding to body to prevent content from hiding under fixed header */
       body {
-        padding-top: 80px; /* Adjust this value based on your header height */
+        padding-top: 100px; /* Increased padding to ensure content doesn't get hidden under header */
+      }
+      
+      /* Mobile menu toggle button (hamburger) */
+      .mobile-menu-toggle {
+        display: none; /* Hidden on desktop */
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+        position: relative;
+      }
+      
+      .mobile-menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--color-dark);
+        margin: 5px 0;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      
+      /* Mobile nav dropdown */
+      .mobile-nav {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 100%; /* Position below the header */
+        left: 0; /* Position on left side instead of right */
+        width: 200px; /* Fixed width dropdown */
+        background-color: var(--color-background);
+        border: 1px solid var(--color-light);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      
+      .mobile-nav.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem 0;
+      }
+      
+      .mobile-nav-links a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.75rem 0;
+        text-decoration: none;
+        color: var(--color-dark);
+        font-family: 'Montserrat', Arial, sans-serif;
+        transition: all 0.3s;
+        border-bottom: 1px solid transparent;
+      }
+      
+      /* Removed all hover effects for mobile nav links to maintain clean minimal design */
+      
+      /* When menu is open, animate hamburger to X */
+      .mobile-menu-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      
+      .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .mobile-menu-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
       }
       
       @media (max-width: 768px) {
@@ -1560,6 +1637,36 @@
               padding: 1rem;
               gap: 1.5rem;
               justify-content: space-between;
+            }
+            
+            /* Center the site name on mobile */
+            .logo-nav {
+              width: 100%;
+              justify-content: center;
+              text-align: center;
+            }
+            
+            /* Hide desktop navigation on mobile */
+            .desktop-nav {
+              display: none;
+            }
+            
+            /* Show mobile menu toggle */
+            .mobile-menu-toggle {
+              display: block;
+              position: absolute;
+              left: 1rem; /* Move to left side to match dropdown */
+              top: 50%;
+              transform: translateY(-50%);
+            }
+            
+            /* Position header as relative for dropdown positioning */
+            header {
+              position: relative;
+            }
+            
+            nav {
+              position: relative;
             }
             
             main {
@@ -1688,6 +1795,31 @@
                 }
               });
             }
+          }
+
+          // Mobile menu toggle functionality
+          const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+          const mobileNav = document.querySelector('.mobile-nav');
+
+          if (mobileMenuToggle && mobileNav) {
+            mobileMenuToggle.addEventListener('click', function() {
+              // Toggle active class on button and mobile nav
+              this.classList.toggle('active');
+              mobileNav.classList.toggle('active');
+
+              // Prevent body scrolling when menu is open
+              document.body.classList.toggle('menu-open');
+            });
+
+            // Close menu when clicking on mobile nav links
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+            mobileNavLinks.forEach(link => {
+              link.addEventListener('click', function() {
+                mobileMenuToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+              });
+            });
           }
         });
       </script>
