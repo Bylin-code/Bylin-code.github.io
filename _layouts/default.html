@@ -83,6 +83,14 @@
         --carousel-hover-brightness: 0.8;     /* Brightness decrease on hover (dimming effect) */
         --carousel-hover-transition: 0.3s;    /* Transition time for hover effects */
         
+        /* Carousel navigation dots */
+        --carousel-dot-size: 10px;           /* Size of navigation dots */
+        --carousel-dot-spacing: 60px;        /* Spacing between dots */
+        --carousel-dot-color: #aaaaaa;       /* Color of inactive dots */
+        --carousel-dot-active-color: #333333; /* Color of active dot */
+        --carousel-dot-transition: 0.3s;      /* Transition time for dot color change */
+        --carousel-dot-margin-top: 20px;     /* Space between carousel and dots */
+        
         /* Project code overlay */
         --project-code-font-size-base: 4.5rem;   /* Base size for the vertical project code letters */
         --project-code-font-size: calc(var(--carousel-image-width) / 7);  /* Responsive size based on image width */
@@ -1072,6 +1080,55 @@
       
       .slide-offscreen-to-right {
         animation: slideOffscreenToRight 0.5s forwards ease-out;
+      }
+
+      /* Carousel navigation dots styling */
+      .carousel-dots {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-top: var(--spacing-xlarge);
+        margin-bottom: var(--spacing-xlarge);
+        z-index: 30;
+      }
+      
+      .carousel-dots .dot {
+        width: var(--carousel-dot-size);
+        height: var(--carousel-dot-size);
+        border-radius: 0; /* Square dots for industrial look */
+        background-color: var(--carousel-dot-color);
+        margin: 0 calc(var(--carousel-dot-spacing) / 2);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Mechanical easing */
+        cursor: pointer;
+        transform: rotate(0deg) scale(1);
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Industrial animation for active dot */
+      .carousel-dots .dot.active {
+        background-color: var(--color-dark);
+        transform: rotate(45deg) scale(1.2);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+      
+      /* Additional stylized dot effects */
+      .carousel-dots .dot:before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+        border: 1px solid transparent;
+        opacity: 0;
+        transition: all 0.4s;
+      }
+      
+      .carousel-dots .dot.active:before {
+        border-color: #666666;
+        opacity: 0.5;
+        transform: rotate(-45deg);
       }
       
       /* Keyframe animations for carousel movement */

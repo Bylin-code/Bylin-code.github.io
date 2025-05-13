@@ -349,6 +349,9 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Update project code with animation for center item
       displayProjectCode(centerCodeOverlay, centerProject.code, animate);
+      
+      // Update navigation dots to reflect current project
+      updateCarouselDots(currentIndex);
     }
     
     // Update left item
@@ -384,6 +387,63 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  // Function to update carousel navigation dots with industrial animation
+  function updateCarouselDots(activeIndex) {
+    const dotsContainer = document.querySelector('.carousel-dots');
+    if (!dotsContainer) return;
+    
+    // Get all dots
+    const dots = dotsContainer.querySelectorAll('.dot');
+    
+    // Remove active class from all dots
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    // Add active class to current dot with staggered timing
+    if (dots[activeIndex]) {
+      // Short delay for mechanical feeling
+      setTimeout(() => {
+        dots[activeIndex].classList.add('active');
+      }, 50);
+    }
+  }
+  
+  // Make dots clickable for direct navigation
+  function setupDotNavigation() {
+    const dotsContainer = document.querySelector('.carousel-dots');
+    if (!dotsContainer) return;
+    
+    const dots = dotsContainer.querySelectorAll('.dot');
+    
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', function() {
+        if (!isAnimating && index !== currentIndex) {
+          // Determine if we're going forward or backward
+          const direction = index > currentIndex ? 'next' : 'prev';
+          
+          // Set the new index directly
+          const targetIndex = index;
+          
+          // Create mechanical sound effect (optional)
+          const clickSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA/+M4wAAAAAAAAAAAAEluZm8AAAAPAAAABAAABVgANTU1NTU1Q0NDQ0NDUFBQUFBQXl5eXl5ea2tra2tra3l5eXl5eYaGhoaGhpSUlJSUlKGhoaGhoaGvr6+vr6+8vLy8vLzKysrKysrX19fX19fk5OTk5OTx8fHx8fH///////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAX/+M4wDw5sGZIBhqCoR9Z/YUWDChCSfg+BAXnqP63f4UChYMUBAIBgdMRn/4EAwYcD/4sUCIT/wQCBoEAQDFjGP//gg/8QEDv6BgQ/+CYP///hf/xIIf5EP///5f//KNRbmZ2/+M4wGw1GGKIH5qAoPmb1W1BerZyZsEyZZMaTIvGYhM4ZU9PW1VdOxmQlL4/3X0GS5JlYWczmQ3GvsUL380l21l0W+J5K/RGDxKGRg8SJUVQpGsfnB0Pj88Vlc4PB0dHR0fn90OjaenT/+M4wKQ2qAKoL4qAoKNR0yWTJZVCPuimomkyaJ5MrTFkzz0ChUd8pHXIRpbP/K1Uak97y1ReIh+eIxZ68RT//9RS0O/8chGJPBITiD9jbEVHIRjDgyCZyHZ00JgRHDEAEBA7//2P/+M4wLoBCHrFv8IwATJ4TG3xM/8gYqcThTzNOHm8XDmwk4QM2LhhLzgmPHDKQEw6dMQleJxw8eKg8JxCHPFzB8aMmDRg0YRhGHPNi55d9HP//zXPS+3//uzzz/zzfzzz0ki4GiL/+M4wOsypCrFvjUFgVpbtVKqiiBXtVaQiuVNSnZTS0nZSorLf62mQiJ2/9J16SzX//+lifuiJpSyX///9LJf////kv///5KJKWTskkkkkkCAgICAgICAgICAgICAgICAgICAgICAgAgA=');
+          clickSound.volume = 0.1; // Very subtle volume
+          clickSound.play().catch(e => console.log('Audio play prevented by browser'));
+          
+          // Save current index to determine how many steps to navigate
+          const originalIndex = currentIndex;
+          
+          // Set next index to the target index directly
+          currentIndex = targetIndex;
+          
+          // Update carousel with animation
+          updateCarouselDisplay(true);
+        }
+      });
+    });
+  }
+  
   // Initialize carousel display
   updateCarouselDisplay(true);
+  
+  // Initialize dot navigation
+  setupDotNavigation();
 });

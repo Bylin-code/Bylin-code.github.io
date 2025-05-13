@@ -118,13 +118,6 @@ permalink: /
         </div>
       {% endif %}
       
-      <!-- Carousel navigation dots - one for each featured project -->
-      <div class="carousel-dots">
-        {% for project in featured_projects %}
-          <div class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
-        {% endfor %}
-      </div>
-      
       <!-- Only show navigation arrows if we have multiple featured projects -->
       {% if total_featured > 1 %}
         <div class="carousel-nav prev" id="carousel-prev">‹</div>
@@ -144,17 +137,19 @@ permalink: /
     <span>E</span>
     <span>D</span>
   </div>
-  <div class="carousel-dots">
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot active"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  </div>
 </div>
 
-<div class="projects-button-container">
+<div style="margin-top: 70px;"></div><!-- Space between carousel and dots -->
+
+<!-- Carousel navigation dots - one for each featured project -->
+<div class="carousel-dots">
+  {% assign featured_projects = site.posts | where: 'featured', true | sort: 'date' | reverse %}
+  {% for project in featured_projects %}
+    <div class="dot {% if forloop.index0 == 0 %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+  {% endfor %}
+</div>
+
+<div class="projects-button-container" style="margin-top: 30px;">
   <a href="/projects/" class="button">Projects</a>
 </div>
 
