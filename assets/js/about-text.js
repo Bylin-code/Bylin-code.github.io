@@ -3,9 +3,7 @@
 
 // Array of fallback texts in case loading fails
 const BACKUP_TEXTS = [
-  "I have a theory that every idea starts off as completely reasonable and then, like bread left on the counter too long, grows mold that turns into either brilliance or a safety hazard. And the trick is never throwing it out too soon.",
-  "Every object in my room is either something I use every day or something I swore I'd fix eventually; The broken lamp is now a sculpture.",
-  "I think the reason I keep so many broken things is because I'm quietly hoping they'll fix themselves when I'm not looking."
+  "NULL"
 ];
 
 // Array to hold our loaded texts
@@ -88,6 +86,15 @@ function changeAboutText() {
   setTimeout(function() {
     paragraph.textContent = newText;
     paragraph.style.opacity = '1';
+    
+    // Call the alignTextWithImage function from text-spacing.js to adjust line spacing
+    // This ensures line spacing is dynamically adjusted for each new text
+    if (typeof alignTextWithImage === 'function') {
+      // Small delay to ensure the text is rendered before calculating
+      setTimeout(alignTextWithImage, 50);
+    } else {
+      console.warn('alignTextWithImage function not found - check text-spacing.js inclusion');
+    }
   }, 300);
 }
 

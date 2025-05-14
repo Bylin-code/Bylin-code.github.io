@@ -158,7 +158,7 @@ permalink: /
   <div class="about-text">
     <div class="about-text-content" id="about-text-content" onclick="changeAboutText()" style="cursor: pointer;">
       <!-- Initial text that will be replaced by JavaScript -->
-      <p style="transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: left center;">I have a theory that every idea starts off as completely reasonable and then, like bread left on the counter too long, grows mold that turns into either brilliance or a safety hazard. And the trick is never throwing it out too soon.</p>
+      <p style="transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: center center;"></p>
     </div>
   </div>
   <div class="buttons-container">
