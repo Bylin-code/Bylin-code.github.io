@@ -4,7 +4,7 @@ let quotes = [];
 // Function to fetch and parse quotes from the text file
 async function fetchQuotes() {
   try {
-    const response = await fetch('/assets/js/quotes-data.js');
+    const response = await fetch('/assets/data/quotes.txt');
     if (!response.ok) {
       console.error('Failed to load quotes data');
       return;

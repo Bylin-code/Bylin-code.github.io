@@ -2,7 +2,7 @@
 
 async function fetchAboutPageText() {
   try {
-    const response = await fetch('/_data/about-page-texts.txt');
+    const response = await fetch('/assets/data/about-page-texts.txt');
     if (!response.ok) {
       console.error('Failed to load about page text data');
       return;

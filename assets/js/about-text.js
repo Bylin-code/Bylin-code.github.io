@@ -82,18 +82,24 @@ function changeAboutText() {
   // Fade out effect
   paragraph.style.opacity = '0';
   
-  // Change text and fade in
+  // Proper sequence: fade out -> change text -> adjust spacing -> fade in
   setTimeout(function() {
+    // 1. Change the text (but keep it invisible)
     paragraph.textContent = newText;
-    paragraph.style.opacity = '1';
     
-    // Call the alignTextWithImage function from text-spacing.js to adjust line spacing
-    // This ensures line spacing is dynamically adjusted for each new text
+    // 2. Adjust line spacing (while still invisible)
     if (typeof alignTextWithImage === 'function') {
-      // Small delay to ensure the text is rendered before calculating
-      setTimeout(alignTextWithImage, 50);
+      alignTextWithImage();
+      
+      // 3. Fade in text only after spacing is adjusted
+      // Give a small delay to ensure line spacing calculation is complete
+      setTimeout(function() {
+        paragraph.style.opacity = '1';
+      }, 100);
     } else {
       console.warn('alignTextWithImage function not found - check text-spacing.js inclusion');
+      // If function not found, still fade in the text
+      paragraph.style.opacity = '1';
     }
   }, 300);
 }
