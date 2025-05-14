@@ -1,0 +1,19 @@
+---
+layout: default
+title: Home
+permalink: /
+---
+
+<div class="welcome-image-container">
+  <a href="/">
+    <div class="welcome-image-wrapper">
+      <img src="assets/global-assets/home-welcome.jpg" alt="Welcome" class="gallery-image" />
+      <div class="welcome-overlay"></div>
+      <div class="welcome-text">
+        <span>H</span>
+        <span>E</span>
+        <span>L</span>
+        <span>L</span>
+        <span>O</span>
+      </div>
+      <div class="welcome-subtitle"><span class="arrow down-arrow">

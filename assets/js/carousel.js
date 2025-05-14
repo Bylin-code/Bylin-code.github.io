@@ -15,15 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Process all project data
   projectElements.forEach((element, index) => {
-    featuredProjects.push({
-      id: element.getAttribute('data-project-id'),
-      title: element.getAttribute('data-project-title'),
-      url: element.getAttribute('data-project-url'),
-      thumbnail: element.getAttribute('data-project-thumbnail'),
-      code: element.getAttribute('data-project-code'),
-      date: element.getAttribute('data-project-date'),
-      index: index
-    });
+    // Only add projects explicitly marked as featured
+    const isFeatured = element.getAttribute('data-featured') === 'true';
+    if (isFeatured) {
+      featuredProjects.push({
+        id: element.getAttribute('data-project-id'),
+        title: element.getAttribute('data-project-title'),
+        url: element.getAttribute('data-project-url'),
+        thumbnail: element.getAttribute('data-project-thumbnail'),
+        code: element.getAttribute('data-project-code'),
+        date: element.getAttribute('data-project-date'),
+        index: index
+      });
+    }
   });
   
   console.log(`Found ${featuredProjects.length} featured projects`);
