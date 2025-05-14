@@ -172,7 +172,9 @@ permalink: /
 <div class="gallery-container">
   <a href="/gallery/">
     <div class="gallery-image-wrapper">
-      <img src="assets/global-assets/home-gallery.jpg" alt="Gallery" class="gallery-image" />
+      <video src="assets/global-assets/home-gallery.mp4" class="gallery-image" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="assets/global-assets/home-gallery.jpg" alt="Gallery" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </video>
       <div class="gallery-overlay"></div>
       <div class="gallery-quote quote-container">
         <!-- Quote will be populated by quotes.js -->
@@ -187,4 +189,4 @@ permalink: /
 
 
 
-<p class="footer-text">designed and coded by Brady Lin in his dormitory</p>
+<p class="footer-text">website designed and coded by Brady in his dormitory</p>

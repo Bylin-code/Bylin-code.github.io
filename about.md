@@ -28,7 +28,7 @@ permalink: /about/
     
     <!-- Bio paragraph -->
     <div class="about-bio">
-      <p>I'm a Computer Engineering student at Northwestern, always diving into projects that mix hardware, software, and creativity. I've worked on everything from building robotic systems to designing interactive MIDI controllers. I'm also excited about turning my tech ideas into real products, and when I'm not doing that, you'll find me involved in a cappella and exploring music production.</p>
+      <p></p>
     </div>
     
     <div class="vertical-text right-featured">

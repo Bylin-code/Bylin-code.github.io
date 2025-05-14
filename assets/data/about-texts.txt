@@ -8,15 +8,13 @@ It's funny how often I mistake stillness for failure. If something's not blinkin
 
 I think most of adulthood is just quietly agreeing to use tools for things they were never designed to do. A spoon becomes a screwdriver, a shoelace becomes a cable tie, and your friend named Max becomes your version control system because you keep bouncing ideas off him until something sticks. Somewhere in that chaos, you begin to believe the world was meant to be improvised. Or maybe the original design file got corrupted.
 
-The umbrella's been bent sideways since last spring. I stopped trying to open it months ago, but I still carry it. People leave you alone when you carry a broken umbrella on a clear day. It's like holding a small personal storm above your head.
-
 People say you should plant roots. I planted a USB cable once to see what would grow. Three weeks later, I had a blinking light and a mild existential crisis. I named it Greg. He blinks in Morse code, but only when no one is watching.
 
 People say time heals all wounds. Time also makes me forget where I saved my files, what version of the firmware I was using, and why there's a slightly charred breadboard in my backpack labeled "do not trust." I think time might be gaslighting me.
 
 People say everything happens for a reason. But when my code compiled perfectly on the first try and my robot dabbed unprompted, I realized: some reasons are beyond mortal comprehension. I have not been the same since. Neither has the robot.
 
-People say if you love something, let it go. I let go of a drone once. It did not return. It's now believed to be running a startup in Berlin. I still get emails from it—mostly complaints about the gyroscope I gave it in 2023.
+People say if you love something, let it go. I let go of a drone once. It did not return. It's now believed to be running a startup in Berlin. I still get emails from it, mostly complaints about the gyroscope I gave it in 2023.
 
 People say life isn't a simulation. But I once sneezed and accidentally reset my entire Git history. If that's not proof we're in a poorly maintained sandbox server, I don't know what is. Also, all the pigeons on campus know my name. Coincidence?
 
@@ -26,11 +24,9 @@ People say home is where the heart is. I say home is where the Wi-Fi auto-connec
 
 People say the early bird catches the worm. I say the night owl fixes the bug, reprograms the firmware, and still wonders why worms are so popular. Honestly, the worm can wait; I'm debugging at 3 a.m. anyway.
 
-People say the journey of a thousand miles begins with a single step. Mine began with a single misplaced capacitor and a breadboard that may or may not be sentient. And here we are—still stepping, still soldering, still slightly bewildered.
+People say the journey of a thousand miles begins with a single step. Mine began with a single misplaced capacitor and a breadboard that may or may not be sentient. And here we are, still stepping, still soldering, still slightly bewildered.
 
 People say "absence makes the heart grow fonder." My 3D printer disagrees. The moment I step away, it decides to print drawings by Keith Haring instead of useful parts. I call it performance art.
-
-My friends build things for efficiency. I build things that sigh when powered on and recite poetry when left alone too long. One of them is applying to art school.
 
 I once tried to explain my project to a professor. Halfway through, he nodded solemnly and said, "Ah. You've entered that phase." I still don't know what that means, but I assume it's permanent.
 
