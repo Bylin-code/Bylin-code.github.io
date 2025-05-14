@@ -57,8 +57,7 @@ permalink: /
           data-project-url="{{ project.url }}"
           data-project-thumbnail="{{ project.thumbnail }}"
           data-project-code="{{ project.project_code }}"
-          data-project-date="{{ project.date }}"
-          data-featured="{{ project.featured }}">
+          data-project-date="{{ project.date }}">
       </div>
     {% endfor %}
   </div>

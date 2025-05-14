@@ -107,6 +107,18 @@ function changeAboutText() {
 // Load text when the page loads
 document.addEventListener('DOMContentLoaded', function() {
   loadTextFile();
+  
+  // Wait a short moment for the text to be fully loaded and rendered
+  // Then automatically trigger a click to normalize line spacing
+  setTimeout(function() {
+    // Get the about text element
+    const aboutTextElement = document.getElementById('about-text-content');
+    if (aboutTextElement) {
+      console.log('Auto-triggering click on about text to normalize line spacing');
+      // Simulate a click to fix line spacing
+      aboutTextElement.click();
+    }
+  }, 100); // Wait 800ms to ensure text is loaded
 });
 
 // Try again when window fully loads if needed
