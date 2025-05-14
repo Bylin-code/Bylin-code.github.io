@@ -11,14 +11,14 @@ module Jekyll
     # Initialize with the Jekyll site
     def initialize(site)
       @site = site
-      @source_dir = File.join(site.source, 'assets', 'images', 'thumbnails')
+      @project_assets_dir = File.join(site.source, 'assets', 'project-assets')
       @has_imagemagick = system('which convert > /dev/null 2>&1') || system('where convert > /dev/null 2>&1')
     end
     
-    # Process all images in the thumbnails directory
+    # Process thumbnail images in each project directory
     def process_images
-      # Skip if source directory doesn't exist
-      return unless Dir.exist?(@source_dir)
+      # Skip if project assets directory doesn't exist
+      return unless Dir.exist?(@project_assets_dir)
       
       if @has_imagemagick
         process_with_imagemagick
@@ -41,19 +41,25 @@ module Jekyll
       
       log_info("Starting thumbnail processing with ImageMagick")
       
-      # Process each image in the thumbnails directory
-      Dir.glob(File.join(@source_dir, '*.{jpg,jpeg,png,gif}')).each do |img_path|
+      # Find all project subfolders
+      Dir.glob(File.join(@project_assets_dir, '*')).select { |f| File.directory?(f) }.each do |project_dir|
+        # Look for thumbnail.jpg in each project folder
+        thumbnail_path = File.join(project_dir, 'thumbnail.jpg')
+        
+        # Skip if thumbnail doesn't exist in this project folder
+        next unless File.exist?(thumbnail_path)
+        
         begin
-          # Get image filename
-          filename = File.basename(img_path)
-          log_info("Processing #{filename}")
+          # Get project folder name for logging
+          project_name = File.basename(project_dir)
+          log_info("Processing thumbnail for project: #{project_name}")
           
           # Open image with MiniMagick
-          image = MiniMagick::Image.open(img_path)
+          image = MiniMagick::Image.open(thumbnail_path)
           
           # Skip if image is already the right size
           if image.width == TARGET_WIDTH && image.height == TARGET_HEIGHT
-            log_info("#{filename} already at target size, skipping")
+            log_info("Thumbnail for #{project_name} already at target size, skipping")
             next
           end
           
@@ -67,10 +73,10 @@ module Jekyll
           end
           
           # Save the resized image back to the original location
-          image.write(img_path)
-          log_info("Resized #{filename} to #{TARGET_WIDTH}x#{TARGET_HEIGHT}")
+          image.write(thumbnail_path)
+          log_info("Resized thumbnail for #{project_name} to #{TARGET_WIDTH}x#{TARGET_HEIGHT}")
         rescue => e
-          log_error("Error processing #{filename}: #{e.message}")
+          log_error("Error processing thumbnail for #{project_name}: #{e.message}")
         end
       end
       

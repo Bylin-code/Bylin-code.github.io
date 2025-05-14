@@ -1,49 +1,44 @@
 // Quote bank for the portfolio site
-const quotes = [
-  {
-    text: "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do.",
-    author: "Steve Jobs"
-  },
-  {
-    text: "Good design is making something intelligible and memorable. Great design is making something memorable and meaningful.",
-    author: "Dieter Rams"
-  },
-  {
-    text: "Simplicity is the ultimate sophistication.",
-    author: "Leonardo da Vinci"
-  },
-  {
-    text: "What we make testifies who we are. People can sense care and can sense carelessness. This relates to respect for each other and carelessness is personally offensive.",
-    author: "Jonathan Ive"
-  },
-  {
-    text: "Form follows function.",
-    author: "Louis Sullivan"
-  },
-  {
-    text: "Less is more.",
-    author: "Ludwig Mies van der Rohe"
-  },
-  {
-    text: "Be alone, that is the secret of invention; be alone, that is when ideas are born.",
-    author: "Nikola Tesla"
-  },
-  {
-    text: "It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change.",
-    author: "Charles Darwin"
-  },
-  {
-    text: "Learn the rules like a pro, so you can break them like an artist.",
-    author: "Pablo Picasso"
-  },
-  {
-    text: "Begin by learning to draw and paint like the old masters. After that, you can do as you like; everyone will respect you.",
-    author: "Salvador Dali"
+let quotes = [];
+
+// Function to fetch and parse quotes from the text file
+async function fetchQuotes() {
+  try {
+    const response = await fetch('/assets/js/quotes-data.js');
+    if (!response.ok) {
+      console.error('Failed to load quotes data');
+      return;
+    }
+    
+    const data = await response.text();
+    // Split by double newlines to get individual quote blocks
+    const quoteBlocks = data.split('\n\n').filter(block => block.trim() !== '');
+    
+    // Process each quote block
+    quotes = quoteBlocks.map(block => {
+      // Split by the line with author (starts with '- ')
+      const lines = block.split('\n');
+      const authorLine = lines.find(line => line.trim().startsWith('- '));
+      
+      // Extract author and text
+      const author = authorLine ? authorLine.trim().substring(2).trim() : 'Unknown';
+      const text = lines.filter(line => !line.trim().startsWith('- ')).join(' ').trim();
+      
+      return { text, author };
+    });
+    
+    // If we successfully loaded quotes, display one
+    if (quotes.length > 0) {
+      displayRandomQuote();
+    }
+  } catch (error) {
+    console.error('Error loading quotes:', error);
   }
-];
+}
 
 // Function to get a random quote from the bank
 function getRandomQuote() {
+  if (quotes.length === 0) return { text: '', author: '' };
   const randomIndex = Math.floor(Math.random() * quotes.length);
   return quotes[randomIndex];
 }
@@ -84,7 +79,7 @@ function displayRandomQuote() {
   }
 }
 
-// Initialize the quote display when the DOM is loaded
+// Initialize: fetch the quotes and set up the display when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  displayRandomQuote();
+  fetchQuotes();
 });

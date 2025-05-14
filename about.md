@@ -52,6 +52,8 @@ permalink: /about/
   </div>
 </section>
 
+<script src="/assets/js/about-page-text.js"></script>
+
 <style>
   .about-page {
     width: 100%;

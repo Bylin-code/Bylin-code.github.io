@@ -149,8 +149,6 @@ permalink: /
   <a href="/projects/" class="button">Projects</a>
 </div>
 
-
-
 <div class="about-section">
   <div class="about-image">
     <a href="/about/">
@@ -158,9 +156,9 @@ permalink: /
     </a>
   </div>
   <div class="about-text">
-    <div class="about-text-content" id="about-text-content">
-      <p>I'm a Computer Engineering student at Northwestern, always diving into projects that mix hardware, software, and creativity. I’ve worked on everything from building robotic systems to designing interactive MIDI controllers. I’m also excited about turning my tech ideas into real products, and when I’m not doing that, you’ll find me involved in a cappella and exploring music production.
-</p>
+    <div class="about-text-content" id="about-text-content" onclick="changeAboutText()" style="cursor: pointer;">
+      <!-- Initial text that will be replaced by JavaScript -->
+      <p style="transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: left center;">I have a theory that every idea starts off as completely reasonable and then, like bread left on the counter too long, grows mold that turns into either brilliance or a safety hazard. And the trick is never throwing it out too soon.</p>
     </div>
   </div>
   <div class="buttons-container">

@@ -1492,6 +1492,12 @@
             hyphens: auto;
             word-spacing: normal;
             letter-spacing: normal;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: left center;
+          }
+          
+          .about-text-content:hover p {
+            transform: scale(1.05);
           }
 
           .buttons-container {
@@ -1695,6 +1701,7 @@
         <script src="/assets/js/quotes.js"></script>
         <script src="/assets/js/text-spacing.js"></script>
         <script src="/assets/js/carousel-responsive.js"></script>
+        <script src="/assets/js/about-text.js"></script>
       </head>
       <body>
         <!-- Decorative Chinese characters for wide screens -->
