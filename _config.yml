@@ -21,19 +21,24 @@
 title: BRADY LIN
 email: bradylin2008@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Brady Lin - Mechanical Engineer, Computer Engineer & Embedded Design Specialist. Portfolio of Brady Lin showcasing industrial design, mechanical engineering, and embedded systems projects by Brady Lin.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "bradylin.com" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "https://bradylin.com" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: bradylin
+github_username: bylin-code
+
+# SEO settings
+author: Brady Lin
+logo: /assets/images/logo.png # Add your logo path here
+locale: en_US
 
 # Build settings
 theme: minima
 
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
 collections:
   posts:
     future: true

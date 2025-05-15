@@ -1,0 +1,36 @@
+<!-- Schema.org structured data for better search engine understanding -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Brady Lin",
+    "alternateName": "BRADY LIN",
+    "url": "{{ site.url }}",
+    "image": "{{ site.url }}{{ site.logo }}",
+    "sameAs": [
+      "https://github.com/{{ site.github_username }}",
+      "https://twitter.com/{{ site.twitter_username }}"
+    ],
+    "jobTitle": "Mechanical Engineer, Computer Engineer & Embedded Systems Designer",
+    "description": "{{ site.description | strip_html | strip_newlines | escape }}",
+    "knowsAbout": ["Mechanical Engineering", "Computer Engineering", "Embedded Systems", "Industrial Design", "Electronic Product Design", "Robotics", "CAD", "Embedded Programming"]
+
+  },
+  {% if page.layout == "post" %}
+  "mainEntity": {
+    "@type": "CreativeWork",
+    "name": "{{ page.title }}",
+    "description": "{% if page.description %}{{ page.description | strip_html | strip_newlines | escape }}{% else %}{{ page.intro | strip_html | strip_newlines | escape }}{% endif %}",
+    "image": "{{ site.url }}{% if page.feature_image %}{{ page.feature_image }}{% else %}{{ page.thumbnail }}{% endif %}",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ site.author }}"
+    }
+  },
+  {% endif %}
+  "url": "{{ site.url }}{{ page.url }}"
+}
+</script>

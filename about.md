@@ -1,7 +1,10 @@
 ---
 layout: default
-title: About
+title: About Brady Lin | Mechanical & Computer Engineer | Embedded Systems Designer
 permalink: /about/
+description: Brady Lin is a specialist in mechanical engineering, computer engineering, and embedded systems design with expertise in industrial design and robotics.
+keywords: ["Brady Lin", "BRADY LIN", "mechanical engineer", "computer engineer", "embedded systems", "industrial design", "electronics", "robotics"]
+feature_image: "/assets/global-assets/about-main.jpg"
 ---
 
 <section class="about-page">
