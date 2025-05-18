@@ -193,9 +193,3 @@ feature_image: "/assets/global-assets/home-welcome.jpg"
 
 
 <p class="footer-text">website designed and coded by Brady in his dormitory</p>
-
-<!-- SEO Enhancement Section -->
-<div class="seo-enhancement" style="opacity:0.05;font-size:10px;margin-top:3rem;color:#999;">
-  <h2>Brady Lin - Mechanical & Computer Engineering Portfolio</h2>
-  <p>Brady Lin is a mechanical engineer and computer engineer specializing in embedded systems design, industrial design, and robotics. This portfolio showcases Brady Lin's projects including robotic systems, electronic product designs, and mechanical engineering solutions. Brady Lin combines technical expertise in CAD, embedded programming, and hardware design with creative problem-solving. For engineering consultation, project collaboration, or to learn more about Brady Lin's work in mechanical engineering, computer engineering, or embedded systems design, please visit the contact page.</p>
-</div>

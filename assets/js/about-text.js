@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Simulate a click to fix line spacing
       aboutTextElement.click();
     }
-  }, 100); // Wait 800ms to ensure text is loaded
+  }, 500); // Wait 800ms to ensure text is loaded
 });
 
 // Try again when window fully loads if needed
