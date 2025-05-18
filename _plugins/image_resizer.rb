@@ -4,12 +4,12 @@ require 'fileutils'
 module Jekyll
   class ImageResizer
     # Configuration constants
-    # Project carousel thumbnails
-    TARGET_WIDTH = 420  # Carousel image width from CSS
-    TARGET_HEIGHT = 594 # Carousel image height from CSS
-    # About page and section images
-    ABOUT_WIDTH = 420   # About section image width from CSS
-    ABOUT_HEIGHT = 594  # About section image height from CSS
+    # Project carousel thumbnails - doubled for higher resolution
+    TARGET_WIDTH = 420  # Carousel image width from CSS (doubled from 420)
+    TARGET_HEIGHT = 594 # Carousel image height from CSS (doubled from 594)
+    # About page and section images - doubled for higher resolution
+    ABOUT_WIDTH = 840   # About section image width from CSS (doubled from 420)
+    ABOUT_HEIGHT = 1188  # About section image height from CSS (doubled from 594)
     # Welcome image (optimized for responsive display)
     WELCOME_WIDTH = 1920 # Welcome image width (high resolution)
     WELCOME_HEIGHT = 1080 # Welcome image height (16:9 aspect ratio)
@@ -79,7 +79,7 @@ module Jekyll
       
       # Define target images with their dimensions
       target_images = {
-        'about-main.jpg' => [ABOUT_WIDTH, ABOUT_HEIGHT],
+        'about-main.jpg' => [WELCOME_WIDTH, WELCOME_HEIGHT], # Use same dimensions as welcome image
         'home-welcome.jpg' => [WELCOME_WIDTH, WELCOME_HEIGHT],
         'home-about.jpg' => [ABOUT_WIDTH, ABOUT_HEIGHT]
       }

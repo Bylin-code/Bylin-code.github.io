@@ -19,7 +19,7 @@ feature_image: "/assets/global-assets/home-welcome.jpg"
         <span>L</span>
         <span>O</span>
       </div>
-      <div class="welcome-subtitle"><span class="arrow down-arrow">↓</span> scroll to see what I've been working on <span class="arrow down-arrow">↓</span></div>
+      <div class="welcome-subtitle"><span class="arrow down-arrow">↓</span> see what I've been working on <span class="arrow down-arrow">↓</span></div>
     </div>
   </a>
 </div>
